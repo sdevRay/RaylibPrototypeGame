@@ -66,18 +66,60 @@ namespace RayLibTemplate
 		Vector2 origin;
 		int speed = 1;
 
+		// Sword
+		public Texture2D Weapon { get; private set; }
+		readonly int frameWidth1;
+		readonly int frameHeight1;
+		Vector2 origin1;
+
+		// Head
+		public Texture2D Head { get; private set; }
+		readonly int frameWidth2;
+		readonly int frameHeight2;
+		Vector2 origin2;
+
+		readonly List<(List<KeyboardKey> Keys, Direction Direction, State State)> _keyMappings = 
+			[
+			(new List<KeyboardKey> { KeyboardKey.D }, Direction.Right, State.Running),
+			(new List<KeyboardKey> { KeyboardKey.A }, Direction.Left, State.Running),
+			(new List<KeyboardKey> { KeyboardKey.W }, Direction.Up, State.Running),
+			(new List<KeyboardKey> { KeyboardKey.S }, Direction.Down, State.Running),
+			(new List<KeyboardKey> { KeyboardKey.W, KeyboardKey.D }, Direction.UpRight, State.Running),
+			(new List<KeyboardKey> { KeyboardKey.W, KeyboardKey.A }, Direction.UpLeft, State.Running),
+			(new List<KeyboardKey> { KeyboardKey.S, KeyboardKey.D }, Direction.DownRight, State.Running),
+			(new List<KeyboardKey> { KeyboardKey.S, KeyboardKey.A }, Direction.DownLeft, State.Running),
+		];
+
 		public Player()
 		{
-			SpriteSheet = Raylib.LoadTexture("Assets/Isometric_Hero/leather_armor.png");
+			// Head
+			Head = Raylib.LoadTexture("Assets/Isometric_Hero/male_head2.png");
+			frameWidth2 = Head.Width / 32;
+			frameHeight2 = Head.Height / 8; // 8 rows of frames
+			origin2 = new Vector2(frameWidth2 / 2, frameHeight2 / 2);
 
-			frameWidth = SpriteSheet.Width / 32; // zombie has 36 frames
-			frameHeight = SpriteSheet.Height / 8; // Assuming 8 rows of frames
+			// Sword
+			Weapon = Raylib.LoadTexture("Assets/Isometric_Hero/longsword.png");
+			frameWidth1 = Weapon.Width / 32;
+			frameHeight1 = Weapon.Height / 8; // 8 rows of frames
+			origin1 = new Vector2(frameWidth1 / 2, frameHeight1 / 2);
+
+			// Player
+			SpriteSheet = Raylib.LoadTexture("Assets/Isometric_Hero/leather_armor.png");
+			frameWidth = SpriteSheet.Width / 32;
+			frameHeight = SpriteSheet.Height / 8; // 8 rows of frames
 			origin = new Vector2(frameWidth / 2, frameHeight / 2);
 			speed = 2;
 			state = State.Stance;
 		}
 
 		public void Update()
+		{
+			UpdateFrames();
+			Input();
+		}
+
+		void UpdateFrames()
 		{
 			timer += Raylib.GetFrameTime();
 
@@ -86,96 +128,55 @@ namespace RayLibTemplate
 				timer = 0;
 				currentFrame = (currentFrame + 1) % GetFrameCount(); // Loop through frames
 			}
-
-			Input();
 		}
 
 		void Input()
 		{
-
 			Vector2 movement = Vector2.Zero;
-
-			if(movement == Vector2.Zero)
-			{
-				state = State.Stance;
-			}
+			state = State.Stance;
 
 			if (Raylib.IsMouseButtonDown(MouseButton.Left))
 			{
 				state = State.MeleeSwing;
-				return;
 			}
-
-			if (Raylib.IsMouseButtonDown(MouseButton.Right))
+			else if (Raylib.IsMouseButtonDown(MouseButton.Right))
 			{
 				state = State.Block;
-				return;
 			}
 
-			// TODO: For testing
-			if(Raylib.IsKeyDown(KeyboardKey.Space))
+			//// TODO: For testing
+			//if(Raylib.IsKeyDown(KeyboardKey.Space))
+			//{
+			//	state = State.HitAndDie;
+			//	return;
+			//}
+
+			foreach (var mapping in _keyMappings)
 			{
-				state = State.HitAndDie;
-				return;
+				if (mapping.Keys.All(key => Raylib.IsKeyDown(key)))
+				{
+					movement += mapping.Direction switch
+					{
+						Direction.Right => new Vector2(1, 0),
+						Direction.Left => new Vector2(-1, 0),
+						Direction.Up => new Vector2(0, -1),
+						Direction.Down => new Vector2(0, 1),
+						Direction.UpRight => new Vector2(1, -1),
+						Direction.UpLeft => new Vector2(-1, -1),
+						Direction.DownRight => new Vector2(1, 1),
+						Direction.DownLeft => new Vector2(-1, 1),
+						_ => Vector2.Zero,
+					};
+					direction = mapping.Direction;
+					state = mapping.State;
+				}
 			}
 
-			if (Raylib.IsKeyDown(KeyboardKey.D))
-			{
-				movement.X += 1;
-				direction = Direction.Right;
-				state = State.Running;
-			}
-			if (Raylib.IsKeyDown(KeyboardKey.A))
-			{
-				movement.X -= 1;
-				direction = Direction.Left;
-				state = State.Running;
-			}
-			if (Raylib.IsKeyDown(KeyboardKey.W))
-			{
-				movement.Y -= 1;
-				direction = Direction.Up;
-				state = State.Running;
-			}
-			if (Raylib.IsKeyDown(KeyboardKey.S))
-			{
-				movement.Y += 1;
-				direction = Direction.Down;
-				state = State.Running;
-			}
-
-			if (Raylib.IsKeyDown(KeyboardKey.W) && Raylib.IsKeyDown(KeyboardKey.D))
-			{
-				direction = Direction.UpRight;
-				state = State.Running;
-			}
-
-			if (Raylib.IsKeyDown(KeyboardKey.W) && Raylib.IsKeyDown(KeyboardKey.A))
-			{
-				direction = Direction.UpLeft;
-				state = State.Running;
-			}
-
-			if (Raylib.IsKeyDown(KeyboardKey.S) && Raylib.IsKeyDown(KeyboardKey.D))
-			{
-				direction = Direction.DownRight;
-				state = State.Running;
-			}
-
-			if (Raylib.IsKeyDown(KeyboardKey.S) && Raylib.IsKeyDown(KeyboardKey.A))
-			{
-				direction = Direction.DownLeft;
-				state = State.Running;
-			}
-
-
-			// Normalize the movement vector and scale by the desired speed
 			if (movement != Vector2.Zero)
 			{
 				movement = Vector2.Normalize(movement);
-				Position += movement * speed; // Multiply by speed
+				Position += movement * speed;
 			}
-			//Debug.WriteLine($"Direction: {direction}");
 		}
 
 		Vector2 GetFrameOffSet()
@@ -210,12 +211,26 @@ namespace RayLibTemplate
 		public void Draw()
 		{
 			var offset = GetFrameOffSet();
-			// Calculate the source rectangle for the current frame
-			Rectangle sourceRec = new Rectangle((currentFrame + offset.X) * frameWidth, frameHeight * offset.Y, frameWidth, frameHeight);		
-			Rectangle destRec = new Rectangle(Position.X, Position.Y, frameWidth, frameHeight);
 
+			// Draw the head
+			Rectangle sourceRec2 = new Rectangle((currentFrame + offset.X) * frameWidth2, frameHeight2 * offset.Y, frameWidth2, frameHeight2);
+			Rectangle destRec2 = new Rectangle(Position.X, Position.Y, frameWidth2, frameHeight2);
+			Raylib.DrawTexturePro(Head, sourceRec2, destRec2, origin2, 0, Color.White);
+
+
+			// Calculate the source rectangle for the current frame
 			// Draw the character
+			Rectangle sourceRec = new Rectangle((currentFrame + offset.X) * frameWidth, frameHeight * offset.Y, frameWidth, frameHeight);
+			Rectangle destRec = new Rectangle(Position.X, Position.Y, frameWidth, frameHeight);
 			Raylib.DrawTexturePro(SpriteSheet, sourceRec, destRec, origin, 0, Color.White);
+
+
+			// Draw the sword
+			Rectangle sourceRec1 = new Rectangle((currentFrame + offset.X) * frameWidth1, frameHeight1 * offset.Y, frameWidth1, frameHeight1);
+			Rectangle destRec1 = new Rectangle(Position.X, Position.Y, frameWidth1, frameHeight1);
+			Raylib.DrawTexturePro(Weapon, sourceRec1, destRec1, origin1, 0, Color.White);
+
+
 		}
 
 		public void Unload()
@@ -225,7 +240,6 @@ namespace RayLibTemplate
 
 		int GetFrameCount()
 		{
-			// TODO: Maybe make these from state enum
 			return state switch
 			{
 				State.Stance => 4,
