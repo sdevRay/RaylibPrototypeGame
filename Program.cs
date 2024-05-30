@@ -1,4 +1,6 @@
 ﻿using Raylib_cs;
+using RayLibTemplate.Entities.Enemies.Zombie;
+using RayLibTemplate.Entities.Player;
 
 namespace RayLibTemplate
 {
@@ -10,26 +12,28 @@ namespace RayLibTemplate
 			Raylib.InitWindow(800, 600, "Raylib C# Prototype");
 			Raylib.SetTargetFPS(60);
 
-			var player = new Player();
+
+			var entityManager = new EntityManager();
+			entityManager.AddEntity(new Player());
+			entityManager.AddEntity(new Zombie());
 
 			// Main game loop
 			while (!Raylib.WindowShouldClose())
 			{
-
-				player.Update();
+				entityManager.UpdateEntities();
 
 				// Drawing
 				Raylib.BeginDrawing();
 				Raylib.ClearBackground(Color.RayWhite);
 
-				player.Draw();
-
+				entityManager.DrawEntities();
 
 				Raylib.EndDrawing();
 			}
 
 			// Unload texture and close window
-			player.Unload();
+			entityManager.UnloadEntities();
+
 			Raylib.CloseWindow();
 		}
 	}
