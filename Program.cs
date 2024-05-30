@@ -1,5 +1,4 @@
 ﻿using Raylib_cs;
-using System.Numerics;
 
 namespace RayLibTemplate
 {
@@ -8,7 +7,7 @@ namespace RayLibTemplate
 		static void Main(string[] args)
 		{
 			// Initialize the Raylib window
-			Raylib.InitWindow(800, 600, "Raylib C# Character Controller");
+			Raylib.InitWindow(800, 600, "Raylib C# Prototype");
 			Raylib.SetTargetFPS(60);
 
 			var player = new Player();
