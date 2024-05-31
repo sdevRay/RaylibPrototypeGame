@@ -2,6 +2,9 @@
 
 namespace RayLibTemplate
 {
+	// TODO: Implement a TextureManager class that loads and unloads textures
+	// Also may have static references to all loaded textures
+	// Right now the sprite classes handles this responsibility 
 	static class TextureManager
 	{
 		private static readonly Dictionary<string, Texture2D> textures = [];

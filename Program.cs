@@ -1,6 +1,7 @@
 ﻿using Raylib_cs;
 using RayLibTemplate.Entities.Enemies.Zombie;
 using RayLibTemplate.Entities.Player;
+using System.Numerics;
 
 namespace RayLibTemplate
 {
@@ -14,8 +15,13 @@ namespace RayLibTemplate
 
 
 			var entityManager = new EntityManager();
-			entityManager.AddEntity(new Player());
-			entityManager.AddEntity(new Zombie());
+
+
+			var zombie = new Zombie(new Vector2(100, 100));
+			var player = new Player(new Vector2(100, 100));
+
+			entityManager.AddEntity(zombie);
+			entityManager.AddEntity(player);
 
 			// Main game loop
 			while (!Raylib.WindowShouldClose())

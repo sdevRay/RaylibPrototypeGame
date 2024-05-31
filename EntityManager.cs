@@ -1,22 +1,24 @@
-﻿using RayLibTemplate.Entities;
+﻿using RayLibTemplate.Entities.Character;
 
 namespace RayLibTemplate
 {
+	// TODO: This is a stub class only setup for GameCharacter's.
+	// Implement or abstract this class to manage entities in the game.
 	public class EntityManager
 	{
-		private readonly List<IEntity> _entities;
+		private readonly List<GameCharacter> _entities;
 
 		public EntityManager()
 		{
 			_entities = [];
 		}
 
-		public void AddEntity(IEntity entity)
+		public void AddEntity(GameCharacter entity)
 		{
 			_entities.Add(entity);
 		}
 
-		public void RemoveEntity(IEntity entity)
+		public void RemoveEntity(GameCharacter entity)
 		{
 			_entities.Remove(entity);
 		}
@@ -25,10 +27,7 @@ namespace RayLibTemplate
 		{
 			foreach (var entity in _entities)
 			{
-				if (entity is IUpdate updateableEntity)
-				{
-					updateableEntity.Update();
-				}
+				entity.Update();
 			}
 		}
 
@@ -39,10 +38,7 @@ namespace RayLibTemplate
 
 			foreach (var entity in sortedEntities)
 			{
-				if (entity is IDraw drawableEntity)
-				{
-					drawableEntity.Draw();
-				}
+				entity.Draw();
 			}
 		}
 
@@ -50,10 +46,7 @@ namespace RayLibTemplate
 		{
 			foreach (var entity in _entities)
 			{
-				if (entity is IUnload drawableEntity)
-				{
-					drawableEntity.Unload();
-				}
+				entity.Unload();
 			}
 		}
 	}

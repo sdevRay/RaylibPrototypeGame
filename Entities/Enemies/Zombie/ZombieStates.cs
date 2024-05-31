@@ -1,6 +1,6 @@
 ﻿namespace RayLibTemplate.Entities.Enemies.Zombie
 {
-    public enum ZombieState
+    public enum ZombieStates
     {
         Stance,
         Lurch,

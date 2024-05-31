@@ -1,4 +1,4 @@
-﻿namespace RayLibTemplate.Entities.Controllers
+﻿namespace RayLibTemplate.Entities.Character
 {
     public enum Direction
     {

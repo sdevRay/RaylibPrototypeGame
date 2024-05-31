@@ -1,46 +1,48 @@
-﻿namespace RayLibTemplate.Entities
+﻿using RayLibTemplate.Entities.Character;
+
+namespace RayLibTemplate.Entities
 {
-    public  class AnimatedSpriteManager<TState> : IUpdate, IDraw, IUnload
-    {
-        List<AnimatedSprite<TState>> _sprites;
+	public class AnimatedSpriteManager
+	{
+		List<IAnimatedSprite> _sprites;
 
-        public AnimatedSpriteManager()
-        {
+		public AnimatedSpriteManager()
+		{
 			_sprites = [];
-        }
+		}
 
-        public void AddSprite(AnimatedSprite<TState> sprite)
-        {
-            _sprites.Add(sprite);
-        }
+		public void AddSprite(IAnimatedSprite sprite)
+		{
+			_sprites.Add(sprite);
+		}
 
-        public bool RemoveSprite(AnimatedSprite<TState> sprite)
-        {
-            return _sprites.Remove(sprite);
-        }
+		public bool RemoveSprite(IAnimatedSprite sprite)
+		{
+			return _sprites.Remove(sprite);
+		}
 
-        public void Update()
-        {
-            foreach (var item in _sprites)
-            {
-                item.Update();
-            }
-        }
+		public void UpdateSprites()
+		{
+			foreach (var item in _sprites)
+			{
+				item.UpdateSprite();
+			}
+		}
 
-        public void Draw()
-        {
-            foreach (var item in _sprites)
-            {
-                item.Draw();
-            }
-        }
+		public void DrawSprites()
+		{
+			foreach (var item in _sprites)
+			{
+				item.DrawSprite();
+			}
+		}
 
-        public void Unload()
-        {
-            foreach (var item in _sprites)
-            {
-                item.Unload();
-            }
-        }
-    }
+		public void UnloadSprites()
+		{
+			foreach (var item in _sprites)
+			{
+				item.UnloadSprite();
+			}
+		}
+	}
 }

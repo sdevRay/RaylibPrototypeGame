@@ -1,13 +1,11 @@
 ﻿using Raylib_cs;
-using RayLibTemplate.Entities.Player;
+using RayLibTemplate.Entities.Character;
 using System.Numerics;
 
-namespace RayLibTemplate.Entities.Controllers
+namespace RayLibTemplate.Entities.Player
 {
-    public class PlayerController : Controller<PlayerState>
+    public class PlayerController : Controller
     {
-        public override Character<PlayerState> Character { get; set; }
-
         readonly List<(List<KeyboardKey> Keys, Direction Direction, PlayerState State)> _keyMappings =
         [
             (new List<KeyboardKey> { KeyboardKey.D }, Direction.Right, PlayerState.Running),
@@ -20,23 +18,22 @@ namespace RayLibTemplate.Entities.Controllers
             (new List<KeyboardKey> { KeyboardKey.S, KeyboardKey.A }, Direction.DownLeft, PlayerState.Running),
         ];
 
-        public PlayerController(Character<PlayerState> character)
+        public PlayerController(GameCharacter gameCharacter) : base(gameCharacter)
         {
-			Character = character;
         }
 
         public override void Input()
         {
             Vector2 movement = Vector2.Zero;
-			Character.State = PlayerState.Stance;
+			GameCharacter.State.CurrentState = PlayerState.Stance;
 
             if (Raylib.IsMouseButtonDown(MouseButton.Left))
             {
-				Character.State = PlayerState.MeleeSwing;
+				GameCharacter.State.CurrentState = PlayerState.MeleeSwing;
             }
             else if (Raylib.IsMouseButtonDown(MouseButton.Right))
             {
-				Character.State = PlayerState.Block;
+				GameCharacter.State.CurrentState = PlayerState.Block;
             }
 
             foreach (var mapping in _keyMappings)
@@ -55,24 +52,23 @@ namespace RayLibTemplate.Entities.Controllers
                         Direction.DownLeft => new Vector2(-1, 1),
                         _ => Vector2.Zero,
                     };
-					Character.Direction = mapping.Direction;
-					Character.State = mapping.State;
+					GameCharacter.Direction = mapping.Direction;
+					GameCharacter.State.CurrentState = mapping.State;
                 }
             }
 
             if (movement != Vector2.Zero)
             {
                 movement = Vector2.Normalize(movement);
-				Character.Position += movement * Character.Speed;
+				GameCharacter.Position += movement * GameCharacter.Speed;
             }
 
             // TODO: For testing
             if (Raylib.IsKeyDown(KeyboardKey.Space))
             {
-				Character.State = PlayerState.HitAndDie;
+				GameCharacter.State.CurrentState = PlayerState.HitAndDie;
                 return;
             }
         }
-
     }
 }
