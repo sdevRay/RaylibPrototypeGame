@@ -1,4 +1,4 @@
-﻿namespace RayLibTemplate.Entities.Enemies.Zombie
+﻿namespace RayLibTemplate.Entities.Characters.Enemies.Zombie
 {
     public enum ZombieStates
     {

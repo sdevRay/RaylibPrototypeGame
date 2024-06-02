@@ -1,6 +1,6 @@
-﻿namespace RayLibTemplate.Entities.Player
+﻿namespace RayLibTemplate.Entities.Characters.Player
 {
-    public enum PlayerState
+    public enum PlayerStates
     {
         Stance,
         Running,
