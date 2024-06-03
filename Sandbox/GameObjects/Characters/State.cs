@@ -1,29 +1,20 @@
-﻿using System.Diagnostics;
+﻿using System.Numerics;
 
 namespace RayLibTemplate.Sandbox.GameObjects.Characters
 {
-	public class State
+	abstract class State
     {
-		private IState _state;
+		protected StateContext _stateContext;
+		public abstract float FrameOffSetX { get; }
+		public abstract Vector2 FrameOffSet { get; }
+		public abstract Direction Direction { get; set; }
+		public abstract int FrameCount { get; }
 
-		public State(IState state)
+		public void SetContext(StateContext context)
 		{
-			_state = state;
+			_stateContext = context;
 		}
 
-		public IState CurrentState
-		{
-			get { return _state; }
-			set
-			{
-				_state = value;
-				Debug.WriteLine("State changed to " + _state.GetType().Name);
-			}
-		}
-
-		public void Request()
-		{
-			_state.Handle(this);
-		}
+		public abstract void Handle(IGameObject gameObject);
 	}
 }

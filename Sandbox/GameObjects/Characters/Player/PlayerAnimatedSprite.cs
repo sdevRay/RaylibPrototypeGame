@@ -12,6 +12,7 @@ namespace RayLibTemplate.Sandbox.GameObjects.Characters.Player
 	//Cast Spell(4 frames) + 24
 	//Shoot Bow(4 frames) + 28
 
+	// TODO: Right now this is just set up for one Texture2D, but it needs expanded to handle head, armor, and weapon sprites.
 	internal class PlayerAnimatedSprite : AnimatedSprite
 	{
 		protected override Texture2D SpriteSheet => SpriteLoader.Player.LeatherArmor;

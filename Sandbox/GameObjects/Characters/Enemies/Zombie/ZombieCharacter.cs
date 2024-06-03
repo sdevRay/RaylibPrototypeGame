@@ -9,15 +9,12 @@ namespace RayLibTemplate.Sandbox.GameObjects.Characters.Enemies.Zombie
 
 		public override AnimatedSprite AnimatedSprite { get; set; }
 
-		public override State State { get; set; }
-
-		public override int Speed { get; set; }
+		public override StateContext StateContext { get; set; }
 
 		public ZombieCharacter()
 		{
-			State = new State(new ZombieStateCriticalDeath());
+			StateContext = new StateContext(new ZombieStateCriticalDeath());
 			AnimatedSprite = new ZombieAnimatedSprite(this);
-			Speed = 1;
 		}
 
 		public void Draw()
@@ -27,7 +24,7 @@ namespace RayLibTemplate.Sandbox.GameObjects.Characters.Enemies.Zombie
 
 		public void Update()
 		{
-			State.Request();
+			StateContext.Request(this);
 		}
 	}
 }

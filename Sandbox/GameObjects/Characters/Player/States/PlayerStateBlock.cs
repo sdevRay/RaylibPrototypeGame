@@ -2,17 +2,17 @@
 
 namespace RayLibTemplate.Sandbox.GameObjects.Characters.Player.States
 {
-	internal class PlayerStateBlock : IState
+	internal class PlayerStateBlock : State
 	{
-		public float FrameOffSetX => 16;
+		public override float FrameOffSetX => 16;
 
-		public Vector2 FrameOffSet => new Vector2(FrameOffSetX, AnimatedSprite.GetFrameOffSetY(Direction));
+		public override Vector2 FrameOffSet => new Vector2(FrameOffSetX, AnimatedSprite.GetFrameOffSetY(Direction));
 
-		public Direction Direction { get; set; } = Direction.Right;
+		public override Direction Direction { get; set; } = Direction.Right;
 
-		public int FrameCount => 2;
+		public override int FrameCount => 2;
 
-		public void Handle(State state)
+		public override void Handle(IGameObject gameObject)
 		{
 		}
 	}

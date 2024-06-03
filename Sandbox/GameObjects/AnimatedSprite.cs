@@ -39,13 +39,13 @@ namespace RayLibTemplate.Sandbox.GameObjects
 			if (Timer >= FrameTime)
 			{
 				Timer = 0;
-				CurrentFrame = (CurrentFrame + 1) % Character.State.CurrentState.FrameCount; // Loop through frames
+				CurrentFrame = (CurrentFrame + 1) % Character.StateContext.CurrentState.FrameCount; // Loop through frames
 			}
 		}
 		
 		protected void DrawSprite(IGameObject gameObject)
 		{
-			Rectangle sourceRec = new((CurrentFrame + Character.State.CurrentState.FrameOffSet.X) * FrameWidth, FrameHeight * Character.State.CurrentState.FrameOffSet.Y, FrameWidth, FrameHeight);
+			Rectangle sourceRec = new((CurrentFrame + Character.StateContext.CurrentState.FrameOffSet.X) * FrameWidth, FrameHeight * Character.StateContext.CurrentState.FrameOffSet.Y, FrameWidth, FrameHeight);
 
 			Rectangle destRec = new(gameObject.Position.X, gameObject.Position.Y, FrameWidth, FrameHeight);
 			Raylib.DrawTexturePro(SpriteSheet, sourceRec, destRec, Origin, 0, Color.White);
