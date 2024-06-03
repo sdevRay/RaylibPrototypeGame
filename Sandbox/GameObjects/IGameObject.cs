@@ -7,6 +7,5 @@ namespace RayLibTemplate.Sandbox.GameObjects
         public Vector2 Position { get; set; }
         public void Update();
         public void Draw();
-        public void Destroy();
     }
 }

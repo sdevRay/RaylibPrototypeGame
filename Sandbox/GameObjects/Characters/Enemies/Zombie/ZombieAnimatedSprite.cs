@@ -1,5 +1,4 @@
 ﻿using Raylib_cs;
-using System.Numerics;
 
 namespace RayLibTemplate.Sandbox.GameObjects.Characters.Enemies.Zombie
 {
@@ -20,12 +19,6 @@ namespace RayLibTemplate.Sandbox.GameObjects.Characters.Enemies.Zombie
 		protected override int RowCount => 8;
 
 		protected override int ColumnCount => 36;
-
-		protected override int FrameWidth => SpriteSheet.Width / ColumnCount;
-
-		protected override int FrameHeight => SpriteSheet.Height / RowCount;
-
-		protected override Vector2 Origin => new Vector2(FrameWidth / 2, FrameHeight / 2);
 
 		protected override float FrameTime => 0.1f;
 

@@ -1,20 +1,19 @@
 ﻿using System.Numerics;
 
-namespace RayLibTemplate.Sandbox.GameObjects.Characters.Enemies.Zombie.States
+namespace RayLibTemplate.Sandbox.GameObjects.Characters.Player.States
 {
-    internal class ZombieStateSlam : IState
+	internal class PlayerStateHitAndDie : IState
 	{
+		public float FrameOffSetX => 18;
+
 		public Vector2 FrameOffSet => new Vector2(FrameOffSetX, AnimatedSprite.GetFrameOffSetY(Direction));
 
-		public float FrameOffSetX => 12;
-		
 		public Direction Direction { get; set; }
-		
-		public int FrameCount => 4;
-		
+
+		public int FrameCount => 6;
+
 		public void Handle(State state)
 		{
-
 		}
 	}
 }

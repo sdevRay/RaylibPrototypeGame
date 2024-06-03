@@ -1,5 +1,4 @@
 ﻿using RayLibTemplate.Sandbox.GameObjects.Characters.Enemies.Zombie.States;
-using System.Diagnostics;
 using System.Numerics;
 
 namespace RayLibTemplate.Sandbox.GameObjects.Characters.Enemies.Zombie
@@ -16,29 +15,19 @@ namespace RayLibTemplate.Sandbox.GameObjects.Characters.Enemies.Zombie
 
 		public ZombieCharacter()
 		{
-			Position = new Vector2(0, 0);
-			State = new State(new ZombieStateBlock());
+			State = new State(new ZombieStateCriticalDeath());
 			AnimatedSprite = new ZombieAnimatedSprite(this);
 			Speed = 1;
-		}
-
-
-		public void Destroy()
-		{
 		}
 
 		public void Draw()
 		{
 			AnimatedSprite.Animate(this);
-
-			Debug.WriteLine("Drawing ZombieCharacter");
 		}
 
 		public void Update()
 		{
 			State.Request();
-
-			Debug.WriteLine("Updating ZombieCharacter");
 		}
 	}
 }

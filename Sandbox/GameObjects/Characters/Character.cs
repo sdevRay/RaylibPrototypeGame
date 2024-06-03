@@ -1,6 +1,4 @@
-﻿using RayLibTemplate.Entities.Characters;
-
-namespace RayLibTemplate.Sandbox.GameObjects.Characters
+﻿namespace RayLibTemplate.Sandbox.GameObjects.Characters
 {
 	abstract class Character
 	{

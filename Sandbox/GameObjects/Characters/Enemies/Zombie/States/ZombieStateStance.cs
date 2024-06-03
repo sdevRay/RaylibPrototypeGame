@@ -1,11 +1,10 @@
-﻿using RayLibTemplate.Entities.Characters;
-using System.Numerics;
+﻿using System.Numerics;
 
 namespace RayLibTemplate.Sandbox.GameObjects.Characters.Enemies.Zombie.States
 {
-	internal class ZombieStateStance : IState
+    internal class ZombieStateStance : IState
 	{
-		public Vector2 FrameOffSet => new Vector2(FrameOffSetX, StateUtility.GetFrameOffSetY(Direction));
+		public Vector2 FrameOffSet => new Vector2(FrameOffSetX, AnimatedSprite.GetFrameOffSetY(Direction));
 		
 		public float FrameOffSetX => 0;
 		

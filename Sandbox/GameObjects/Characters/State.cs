@@ -1,4 +1,6 @@
-﻿namespace RayLibTemplate.Sandbox.GameObjects.Characters
+﻿using System.Diagnostics;
+
+namespace RayLibTemplate.Sandbox.GameObjects.Characters
 {
 	public class State
     {
@@ -15,7 +17,7 @@
 			set
 			{
 				_state = value;
-				Console.WriteLine("State changed to " + _state.GetType().Name);
+				Debug.WriteLine("State changed to " + _state.GetType().Name);
 			}
 		}
 

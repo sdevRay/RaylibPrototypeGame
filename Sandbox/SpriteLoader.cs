@@ -4,9 +4,15 @@ namespace RayLibTemplate.Sandbox
 {
 	public static class SpriteLoader
 	{
+
 		public static class Player
 		{
+			public static Texture2D LeatherArmor { get; private set; }
 
+			static Player()
+			{
+				LeatherArmor = LoadSprite("Assets/Player/leather_armor.png");
+			}
 		}
 
 		public static class Enemy

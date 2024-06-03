@@ -1,9 +1,8 @@
-﻿using RayLibTemplate.Entities.Characters;
-using System.Numerics;
+﻿using System.Numerics;
 
 namespace RayLibTemplate.Sandbox.GameObjects.Characters
 {
-	public interface IState
+    public interface IState
 	{
 		float FrameOffSetX { get; }
 		Vector2 FrameOffSet { get; }

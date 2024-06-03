@@ -41,9 +41,11 @@
 //			{
 //				ZombieStates.Stance => 0,
 //				ZombieStates.Lurch => 4,
-//				ZombieStates.Slam => 12,
-//				ZombieStates.Bite => 16,
-//				ZombieStates.Block => 18,
+//				ZombieStates.Slam => 12, +8
+//				ZombieStates.Bite => 16, +4
+//				ZombieStates.Block => 20, +4
+//				ZombieStates.HitAndDie => 22, +2
+//				ZombieStates.CriticalDeath => 28, +6
 //				
 //				_ => throw new NotImplementedException(),
 //			};

@@ -12,25 +12,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Assets\Isometric_Hero\buckler.png">
+    <None Update="Assets\Player\buckler.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Isometric_Hero\clothes.png">
+    <None Update="Assets\Player\clothes.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Isometric_Hero\dagger.png">
+    <None Update="Assets\Player\dagger.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Isometric_Hero\leather_armor.png">
+    <None Update="Assets\Player\leather_armor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Isometric_Hero\longbow.png">
+    <None Update="Assets\Player\longbow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Isometric_Hero\longsword.png">
+    <None Update="Assets\Player\longsword.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Isometric_Hero\male_head2.png">
+    <None Update="Assets\Player\male_head2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Zombie\zombie_0.png">
