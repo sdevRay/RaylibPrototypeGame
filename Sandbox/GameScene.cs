@@ -32,7 +32,11 @@ namespace RayLibTemplate.Sandbox
 
         public void DrawGameObjects()
         {
-			foreach (var gameObject in GameObjects)
+			// Sort entities by Y position
+			// This is ordered for characters and might not work for environments
+			var sortedGameObjects = GameObjects.OrderBy(gameObject => gameObject.Position.Y);
+
+			foreach (var gameObject in sortedGameObjects)
 			{
 				gameObject.Draw();
 			}
