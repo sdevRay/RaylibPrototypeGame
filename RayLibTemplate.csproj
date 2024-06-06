@@ -8,6 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Sandbox\GameObjects\Characters\Enemies\Zombie\**" />
+    <EmbeddedResource Remove="Sandbox\GameObjects\Characters\Enemies\Zombie\**" />
+    <None Remove="Sandbox\GameObjects\Characters\Enemies\Zombie\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Sandbox\GameObjects\Characters\Player\States\PlayerStateBlock.cs" />
+    <Compile Remove="Sandbox\GameObjects\Characters\Player\States\PlayerStateCastSpell.cs" />
+    <Compile Remove="Sandbox\GameObjects\Characters\Player\States\PlayerStateHitAndDie.cs" />
+    <Compile Remove="Sandbox\GameObjects\Characters\Player\States\PlayerStateShootBow.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Raylib-cs" Version="6.0.0" />
   </ItemGroup>
 
@@ -30,12 +43,16 @@
     <None Update="Assets\Player\longsword.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Player\male_head2.png">
+    <None Update="Assets\Player\male_head1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Zombie\zombie_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Sandbox\GameObjects\Characters\Enemies\" />
   </ItemGroup>
 	
 </Project>

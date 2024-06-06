@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+﻿using Raylib_cs;
 
 namespace RayLibTemplate.Sandbox.GameObjects.Characters.Player.States
 {
@@ -6,14 +6,26 @@ namespace RayLibTemplate.Sandbox.GameObjects.Characters.Player.States
 	{
 		public override float FrameOffSetX => 12;
 
-		public override Vector2 FrameOffSet => new Vector2(FrameOffSetX, AnimatedSprite.GetFrameOffSetY(Direction));
-
-		public override Direction Direction { get; set; }
-
 		public override int FrameCount => 4;
 
-		public override void Handle(IGameObject gameObject)
+		public PlayerStateMeleeSwing(Character character) : base(character, new OneShotSpriteAnimator(character))
 		{
+			Console.WriteLine("PlayerStateMeleeSwing");
+		}
+
+		public override void Update()
+		{
+			if (Input.IsDirectionalKeyDown(Raylib.GetKeyPressed()))
+			{
+				Character.TransitionToState(new PlayerStateRunning(Character));
+			}
+
+			if (SpriteAnimator is OneShotSpriteAnimator oneShotSpriteAnimator && oneShotSpriteAnimator.IsAnimationFinished)
+			{
+				Character.TransitionToState(new PlayerStateStance(Character));
+			}
+
+			base.Update();
 		}
 	}
 }

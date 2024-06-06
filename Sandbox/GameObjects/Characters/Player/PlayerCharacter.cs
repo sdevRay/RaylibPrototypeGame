@@ -1,30 +1,45 @@
-﻿using RayLibTemplate.Sandbox.GameObjects.Characters.Player.States;
+﻿using RayLibTemplate.Sandbox.GameObjects.Characters.Player.Sprites;
+using RayLibTemplate.Sandbox.GameObjects.Characters.Player.States;
 using System.Numerics;
 
 namespace RayLibTemplate.Sandbox.GameObjects.Characters.Player
 {
-	internal class PlayerCharacter : Character, IGameObject
-	{
-		public override AnimatedSprite AnimatedSprite { get; set; }
+	//32-frame animation in 8 directions.
 
-		public override StateContext StateContext { get; set; }
+	//Stance(4 frames)
+	//Running(8 frames) + 4
+	//Melee Swing(4 frames) + 12
+	//Block(2 frames) + 16
+	//Hit and Die(6 frames) + 18
+	//Cast Spell(4 frames) + 24
+	//Shoot Bow(4 frames) + 28
+
+	internal class PlayerCharacter : Character, IGameObject
+	{	
+		public override Direction Direction { get; set; }
 
 		public Vector2 Position { get; set; }
 
+		public override IEnumerable<Sprite> Sprites => new List<Sprite>() 
+		{ 
+			new LeatherArmorSprite(), 
+			new MaleHeadOneSprite(),
+			new LongSwordSprite()
+		};
+
 		public PlayerCharacter()
 		{
-			StateContext = new StateContext(new PlayerStateRunning());
-			AnimatedSprite = new PlayerAnimatedSprite(this);
-		}
-
-		public void Draw()
-		{
-			AnimatedSprite.Animate(this);
+			TransitionToState(new PlayerStateStance(this));
 		}
 
 		public void Update()
 		{
-			StateContext.Request(this);
+			CurrentState.Update();
+		}
+
+		public void Draw()
+		{
+			CurrentState.Draw();
 		}
 	}
 }

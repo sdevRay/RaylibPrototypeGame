@@ -5,15 +5,17 @@ namespace RayLibTemplate.Sandbox.GameObjects.Characters.Enemies.Zombie
 {
 	internal class ZombieCharacter : Character, IGameObject
 	{
-		public Vector2 Position { get; set; }
-
-		public override AnimatedSprite AnimatedSprite { get; set; }
-
+		public override AnimatedSprite AnimatedSprite { get; set; }	
+		
 		public override StateContext StateContext { get; set; }
+		
+		public override Direction Direction { get; set; }
+		
+		public Vector2 Position { get; set; }
 
 		public ZombieCharacter()
 		{
-			StateContext = new StateContext(new ZombieStateCriticalDeath());
+			StateContext = new StateContext(new ZombieStateStance(), this);
 			AnimatedSprite = new ZombieAnimatedSprite(this);
 		}
 
@@ -24,7 +26,7 @@ namespace RayLibTemplate.Sandbox.GameObjects.Characters.Enemies.Zombie
 
 		public void Update()
 		{
-			StateContext.Request(this);
+			StateContext.Request();
 		}
 	}
 }

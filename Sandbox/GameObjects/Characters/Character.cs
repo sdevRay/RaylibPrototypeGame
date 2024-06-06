@@ -1,9 +1,16 @@
 ﻿namespace RayLibTemplate.Sandbox.GameObjects.Characters
 {
-	abstract class Character
+	public abstract class Character
 	{
-		public abstract AnimatedSprite AnimatedSprite { get; set; }
-		public abstract StateContext StateContext { get; set; }
-		//public abstract int Speed { get; set; }
-    }
+		public abstract IEnumerable<Sprite> Sprites { get; }
+				
+		public abstract Direction Direction { get; set; }
+		
+		public State CurrentState { get; set; }
+
+		public void TransitionToState(State newState)
+		{
+			CurrentState = newState;
+		}
+	}
 }

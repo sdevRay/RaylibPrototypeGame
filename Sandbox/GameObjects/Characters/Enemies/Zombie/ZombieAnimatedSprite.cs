@@ -22,10 +22,6 @@ namespace RayLibTemplate.Sandbox.GameObjects.Characters.Enemies.Zombie
 
 		protected override float FrameTime => 0.1f;
 
-		protected override int CurrentFrame { get; set; }
-
-		protected override float Timer { get; set; }
-
 		protected override Character Character { get; set; }
 
         public ZombieAnimatedSprite(Character character)

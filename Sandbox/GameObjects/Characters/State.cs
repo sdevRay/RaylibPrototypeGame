@@ -2,19 +2,32 @@
 
 namespace RayLibTemplate.Sandbox.GameObjects.Characters
 {
-	abstract class State
+	public abstract class State
     {
-		protected StateContext _stateContext;
-		public abstract float FrameOffSetX { get; }
-		public abstract Vector2 FrameOffSet { get; }
-		public abstract Direction Direction { get; set; }
-		public abstract int FrameCount { get; }
+		public Character Character { get; }
 
-		public void SetContext(StateContext context)
+		public SpriteAnimator SpriteAnimator { get; }
+
+		protected State(Character character, SpriteAnimator spriteAnimator)
 		{
-			_stateContext = context;
+			Character = character;
+			SpriteAnimator = spriteAnimator;
 		}
 
-		public abstract void Handle(IGameObject gameObject);
+		public abstract float FrameOffSetX { get; }
+
+		public Vector2 FrameOffSet => new Vector2(FrameOffSetX, SpriteAnimator.GetFrameOffSetY(Character.Direction));
+
+		public abstract int FrameCount { get; }
+
+		public virtual void Update()
+		{
+			SpriteAnimator.Update();
+		}
+
+		public void Draw()
+		{
+			SpriteAnimator.Draw();
+		}
 	}
 }
