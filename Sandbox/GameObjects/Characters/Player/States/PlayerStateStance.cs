@@ -8,7 +8,7 @@ namespace RayLibTemplate.Sandbox.GameObjects.Characters.Player.States
 
 		public override int FrameCount => 4;
 
-		public PlayerStateStance(Character character) : base(character, new OneShotSpriteAnimator(character))
+		public PlayerStateStance(Character character) : base(character, new PingPongSpriteAnimator(character))
 		{
 			Console.WriteLine("PlayerStateStance");
 		}
@@ -21,9 +21,12 @@ namespace RayLibTemplate.Sandbox.GameObjects.Characters.Player.States
 				{
 					Character.TransitionToState(new PlayerStateMeleeSwing(Character));
 				}
+				else if(mouseButton == MouseButton.Right)
+				{
+					Character.TransitionToState(new PlayerStateBlock(Character));
+				}
 			}
-
-			if (Input.IsDirectionalKeyDown(Raylib.GetKeyPressed()))
+			if (Input.IsDirectionalKeyDown()/* || Input.IsDirectionalKeyPressed()*/)
 			{
 				Character.TransitionToState(new PlayerStateRunning(Character));
 			}

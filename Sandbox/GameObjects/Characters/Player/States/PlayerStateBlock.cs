@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+﻿using Raylib_cs;
 
 namespace RayLibTemplate.Sandbox.GameObjects.Characters.Player.States
 {
@@ -6,22 +6,33 @@ namespace RayLibTemplate.Sandbox.GameObjects.Characters.Player.States
 	{
 		public override float FrameOffSetX => 16;
 
-		public override Vector2 FrameOffSet => new Vector2(FrameOffSetX, AnimatedSprite.GetFrameOffSetY(_stateContext.Character.Direction));
-
 		public override int FrameCount => 2;
 
-		public override AnimatedSprite AnimatedSprite => throw new NotImplementedException();
-
-		public override int CurrentFrame { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-		public override void Draw()
+		public PlayerStateBlock(Character character) : base(character, new OneShotSpriteAnimator(character))
 		{
-			throw new NotImplementedException();
 		}
 
 		public override void Update()
 		{
-			throw new NotImplementedException();
+			if (Input.TryGetMousesButtonDown(out MouseButton mouseButton))
+			{
+				if (mouseButton == MouseButton.Left)
+				{
+					Character.TransitionToState(new PlayerStateMeleeSwing(Character));
+				}
+			}
+
+			if (Input.IsDirectionalKeyPressed())
+			{
+				Character.TransitionToState(new PlayerStateRunning(Character));
+			}
+
+			if (SpriteAnimator is OneShotSpriteAnimator oneShotSpriteAnimator && oneShotSpriteAnimator.IsAnimationFinished)
+			{
+				// Stay in block state until user input state change
+			}
+
+			base.Update();
 		}
 	}
 }

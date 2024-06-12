@@ -1,4 +1,5 @@
 ﻿using Raylib_cs;
+using RayLibTemplate.Sandbox.GameObjects.Characters;
 using System.Numerics;
 
 namespace RayLibTemplate.Sandbox
@@ -22,7 +23,7 @@ namespace RayLibTemplate.Sandbox
 		public static bool TryGetMousesButtonDown(out MouseButton mouseButtonDown)
 		{
 			mouseButtonDown = default;
-			foreach(var mouseButton in _mouseButtons)
+			foreach (var mouseButton in _mouseButtons)
 			{
 				if (Raylib.IsMouseButtonDown(mouseButton))
 				{
@@ -34,9 +35,25 @@ namespace RayLibTemplate.Sandbox
 			return false;
 		}
 
-		public static bool IsDirectionalKeyDown(int keyCode)
+		public static bool IsDirectionalKeyDown()
 		{
-			if(keyCode != default)
+			foreach (var mapping in _keyMappings)
+			{
+				foreach (var key in mapping.Keys)
+				{
+					if (Raylib.IsKeyDown(key))
+					{
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		public static bool IsDirectionalKeyPressed()
+		{
+			int keyCode = Raylib.GetKeyPressed();
+			if (keyCode != default)
 			{
 				foreach (var mapping in _keyMappings)
 				{
@@ -76,6 +93,28 @@ namespace RayLibTemplate.Sandbox
 					direction = mapping.Direction;
 				}
 			}
+		}
+
+		public static void SetDirectionalMovementAI(Vector2 movement, Character character)
+		{
+			float tolerance = 15f;
+
+			if (movement.X > tolerance && movement.Y < -tolerance)
+				character.Direction = Direction.UpRight;
+			else if (movement.X > tolerance && movement.Y > tolerance)
+				character.Direction = Direction.DownRight;
+			else if (movement.X < -tolerance && movement.Y < -tolerance)
+				character.Direction = Direction.UpLeft;
+			else if (movement.X < -tolerance && movement.Y > tolerance)
+				character.Direction = Direction.DownLeft;
+			else if (movement.X > tolerance)
+				character.Direction = Direction.Right;
+			else if (movement.X < -tolerance)
+				character.Direction = Direction.Left;
+			else if (movement.Y < -tolerance)
+				character.Direction = Direction.Up;
+			else if (movement.Y > tolerance)
+				character.Direction = Direction.Down;
 		}
 	}
 }

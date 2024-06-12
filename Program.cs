@@ -1,7 +1,7 @@
 ﻿using Raylib_cs;
 using RayLibTemplate.Sandbox;
-using RayLibTemplate.Sandbox.GameObjects.Characters.Player;
-using System.Numerics;
+using RayLibTemplate.Sandbox2;
+using RayLibTemplate.Sandbox2.Systems;
 
 namespace RayLibTemplate
 {
@@ -13,31 +13,32 @@ namespace RayLibTemplate
 			Raylib.InitWindow(800, 600, "Raylib C# Prototype");
 			Raylib.SetTargetFPS(60);
 
-			var scene = new GameScene();
+			DrawSystem drawSystem = new DrawSystem();
+			MovementSystem movementSystem = new MovementSystem();
 
-			var player = new PlayerCharacter()
-			{
-				Position = new Vector2(200, 200)
-			};
-
-			scene.AddGameObject(player);
+			var player = new Player();
+			drawSystem.AddGameObject(player);
+			movementSystem.AddGameObject(player);
 
 			// Main game loop
 			while (!Raylib.WindowShouldClose())
 			{
-				scene.UpdateGameObjects();
+				float deltaTime = Raylib.GetFrameTime();
+
+				movementSystem.Update(deltaTime);
 
 				// Drawing
 				Raylib.BeginDrawing();
 				Raylib.ClearBackground(Color.RayWhite);
 				
-				scene.DrawGameObjects();
+				drawSystem.Update(deltaTime);
 
 				Raylib.EndDrawing();
 			}
 
 			// Unload texture and close window
-			SpriteLoader.UnloadSprites();
+			drawSystem.UnloadTextures();
+
 			Raylib.CloseWindow();
 		}
 	}

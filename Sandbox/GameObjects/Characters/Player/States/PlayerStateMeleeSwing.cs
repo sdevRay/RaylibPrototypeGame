@@ -15,9 +15,12 @@ namespace RayLibTemplate.Sandbox.GameObjects.Characters.Player.States
 
 		public override void Update()
 		{
-			if (Input.IsDirectionalKeyDown(Raylib.GetKeyPressed()))
+			if (Input.TryGetMousesButtonDown(out MouseButton mouseButton))
 			{
-				Character.TransitionToState(new PlayerStateRunning(Character));
+				 if (mouseButton == MouseButton.Right)
+				{
+					Character.TransitionToState(new PlayerStateBlock(Character));
+				}
 			}
 
 			if (SpriteAnimator is OneShotSpriteAnimator oneShotSpriteAnimator && oneShotSpriteAnimator.IsAnimationFinished)

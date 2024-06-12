@@ -4,9 +4,15 @@
 	{
 		public abstract IEnumerable<Sprite> Sprites { get; }
 				
-		public abstract Direction Direction { get; set; }
+		public Direction Direction { get; set; }
 		
 		public State CurrentState { get; set; }
+
+		public float CollisionRadius { get; set; }
+
+		public float AttackRange { get; set; }
+
+		public float Health { get; set; }
 
 		public void TransitionToState(State newState)
 		{

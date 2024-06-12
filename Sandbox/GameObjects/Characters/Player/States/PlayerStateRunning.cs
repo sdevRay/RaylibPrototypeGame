@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using Raylib_cs;
+using System.Numerics;
 
 namespace RayLibTemplate.Sandbox.GameObjects.Characters.Player.States
 {
@@ -17,8 +18,19 @@ namespace RayLibTemplate.Sandbox.GameObjects.Characters.Player.States
 
         public override void Update()
 		{
-			Input.GetDirectionalMovement(out Direction direction, out Vector2 movement);
+			if (Input.TryGetMousesButtonDown(out MouseButton mouseButton))
+			{
+				if (mouseButton == MouseButton.Left)
+				{
+					Character.TransitionToState(new PlayerStateMeleeSwing(Character));
+				}
+				else if (mouseButton == MouseButton.Right)
+				{
+					Character.TransitionToState(new PlayerStateBlock(Character));
+				}
+			}
 
+			Input.GetDirectionalMovement(out Direction direction, out Vector2 movement);
 			if (movement != Vector2.Zero)
 			{
 				Character.Direction = direction;
