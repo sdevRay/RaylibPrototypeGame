@@ -2,18 +2,26 @@
 
 namespace RayLibTemplate.Sandbox.GameObjects.Characters.Player.States
 {
-	internal class PlayerStateShootBow : IState
+	internal class PlayerStateShootBow : State
 	{
-		public float FrameOffSetX => 28;
+		public override float FrameOffSetX => 28;
 
-		public Vector2 FrameOffSet => new Vector2(FrameOffSetX, AnimatedSprite.GetFrameOffSetY(Direction));
+		public override Vector2 FrameOffSet => new Vector2(FrameOffSetX, AnimatedSprite.GetFrameOffSetY(_stateContext.Character.Direction));
 
-		public Direction Direction { get; set; }
+		public override int FrameCount => 4;
 
-		public int FrameCount => 4;
+		public override AnimatedSprite AnimatedSprite => throw new NotImplementedException();
 
-		public void Handle(State state)
+		public override int CurrentFrame { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+		public override void Draw()
 		{
+			throw new NotImplementedException();
+		}
+
+		public override void Update()
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

@@ -1,19 +1,34 @@
-﻿using System.Numerics;
+﻿using Raylib_cs;
 
 namespace RayLibTemplate.Sandbox.GameObjects.Characters.Player.States
 {
-	internal class PlayerStateMeleeSwing : IState
+	internal class PlayerStateMeleeSwing : State
 	{
-		public float FrameOffSetX => 12;
+		public override float FrameOffSetX => 12;
 
-		public Vector2 FrameOffSet => new Vector2(FrameOffSetX, AnimatedSprite.GetFrameOffSetY(Direction));
+		public override int FrameCount => 4;
 
-		public Direction Direction { get; set; }
-
-		public int FrameCount => 4;
-
-		public void Handle(State state)
+		public PlayerStateMeleeSwing(Character character) : base(character, new OneShotSpriteAnimator(character))
 		{
+			Console.WriteLine("PlayerStateMeleeSwing");
+		}
+
+		public override void Update()
+		{
+			if (Input.TryGetMousesButtonDown(out MouseButton mouseButton))
+			{
+				 if (mouseButton == MouseButton.Right)
+				{
+					Character.TransitionToState(new PlayerStateBlock(Character));
+				}
+			}
+
+			if (SpriteAnimator is OneShotSpriteAnimator oneShotSpriteAnimator && oneShotSpriteAnimator.IsAnimationFinished)
+			{
+				Character.TransitionToState(new PlayerStateStance(Character));
+			}
+
+			base.Update();
 		}
 	}
 }

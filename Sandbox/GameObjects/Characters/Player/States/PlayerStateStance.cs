@@ -1,19 +1,37 @@
-﻿using System.Numerics;
+﻿using Raylib_cs;
 
 namespace RayLibTemplate.Sandbox.GameObjects.Characters.Player.States
 {
-	internal class PlayerStateStance : IState
+	internal class PlayerStateStance : State
 	{
-		public float FrameOffSetX => 0;
+		public override float FrameOffSetX => 0;
 
-		public Vector2 FrameOffSet => new Vector2(FrameOffSetX, AnimatedSprite.GetFrameOffSetY(Direction));
+		public override int FrameCount => 4;
 
-		public Direction Direction { get; set; }
-
-		public int FrameCount => 4;
-
-		public void Handle(State state)
+		public PlayerStateStance(Character character) : base(character, new PingPongSpriteAnimator(character))
 		{
+			Console.WriteLine("PlayerStateStance");
+		}
+
+		public override void Update()
+		{
+			if (Input.TryGetMousesButtonDown(out MouseButton mouseButton))
+			{
+				if(mouseButton == MouseButton.Left)
+				{
+					Character.TransitionToState(new PlayerStateMeleeSwing(Character));
+				}
+				else if(mouseButton == MouseButton.Right)
+				{
+					Character.TransitionToState(new PlayerStateBlock(Character));
+				}
+			}
+			if (Input.IsDirectionalKeyDown()/* || Input.IsDirectionalKeyPressed()*/)
+			{
+				Character.TransitionToState(new PlayerStateRunning(Character));
+			}
+
+			base.Update();
 		}
 	}
 }

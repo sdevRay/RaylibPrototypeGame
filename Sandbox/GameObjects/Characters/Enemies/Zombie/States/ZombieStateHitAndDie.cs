@@ -2,19 +2,16 @@
 
 namespace RayLibTemplate.Sandbox.GameObjects.Characters.Enemies.Zombie.States
 {
-    internal class ZombieStateHitAndDie : IState
+	internal class ZombieStateHitAndDie : State
 	{
-		public Vector2 FrameOffSet => new Vector2(FrameOffSetX, AnimatedSprite.GetFrameOffSetY(Direction));
+		public override Vector2 FrameOffSet => new Vector2(FrameOffSetX, AnimatedSprite.GetFrameOffSetY(_stateContext.Character.Direction));
 
-		public Direction Direction { get; set; }
+		public override int FrameCount => 6;
 
-		public int FrameCount => 6;
+		public override float FrameOffSetX => 22;
 
-		public float FrameOffSetX => 22;
-
-		public void Handle(State state)
+		public override void Handle()
 		{
-
 		}
 	}
 }

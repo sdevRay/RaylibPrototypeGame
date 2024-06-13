@@ -1,19 +1,47 @@
-﻿using System.Numerics;
+﻿using Raylib_cs;
+using System.Numerics;
 
 namespace RayLibTemplate.Sandbox.GameObjects.Characters.Player.States
 {
-	internal class PlayerStateRunning : IState
+	internal class PlayerStateRunning : State
 	{
-		public float FrameOffSetX => 4;
+		public override float FrameOffSetX => 4;
 
-		public Vector2 FrameOffSet => new Vector2(FrameOffSetX, AnimatedSprite.GetFrameOffSetY(Direction));
+		public override int FrameCount => 8;
 
-		public Direction Direction { get; set; }
+		readonly int _speed = 2;
 
-		public int FrameCount => 8;
+        public PlayerStateRunning(Character character) : base(character, new SpriteAnimator(character))
+        {
+			Console.WriteLine("PlayerStateRunning");
+        }
 
-		public void Handle(State state)
+        public override void Update()
 		{
+			if (Input.TryGetMousesButtonDown(out MouseButton mouseButton))
+			{
+				if (mouseButton == MouseButton.Left)
+				{
+					Character.TransitionToState(new PlayerStateMeleeSwing(Character));
+				}
+				else if (mouseButton == MouseButton.Right)
+				{
+					Character.TransitionToState(new PlayerStateBlock(Character));
+				}
+			}
+
+			Input.GetDirectionalMovement(out Direction direction, out Vector2 movement);
+			if (movement != Vector2.Zero)
+			{
+				Character.Direction = direction;
+				((IGameObject)Character).Position += movement * _speed;
+			}
+			else
+			{
+				Character.TransitionToState(new PlayerStateStance(Character));
+			}
+
+			base.Update();
 		}
 	}
 }

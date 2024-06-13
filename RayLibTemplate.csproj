@@ -8,29 +8,33 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Sandbox\GameObjects\Characters\Enemies\Zombie\States\ZombieStateBite.cs" />
+    <Compile Remove="Sandbox\GameObjects\Characters\Enemies\Zombie\States\ZombieStateBlock.cs" />
+    <Compile Remove="Sandbox\GameObjects\Characters\Enemies\Zombie\States\ZombieStateCriticalDeath.cs" />
+    <Compile Remove="Sandbox\GameObjects\Characters\Enemies\Zombie\States\ZombieStateHitAndDie.cs" />
+    <Compile Remove="Sandbox\GameObjects\Characters\Player\States\PlayerStateCastSpell.cs" />
+    <Compile Remove="Sandbox\GameObjects\Characters\Player\States\PlayerStateHitAndDie.cs" />
+    <Compile Remove="Sandbox\GameObjects\Characters\Player\States\PlayerStateShootBow.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Raylib-cs" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Assets\Player\buckler.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Assets\Player\clothes.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Player\dagger.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Player\leather_armor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Player\longbow.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Assets\Player\longsword.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Player\male_head2.png">
+    <None Update="Assets\Player\male_head1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Player\shield.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Zombie\zombie_0.png">

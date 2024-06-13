@@ -2,17 +2,13 @@
 
 namespace RayLibTemplate.Sandbox.GameObjects.Characters.Enemies.Zombie.States
 {
-    internal class ZombieStateLurch : IState
+	internal class ZombieStateLurch : State
 	{
-		public Vector2 FrameOffSet => new Vector2(FrameOffSetX, AnimatedSprite.GetFrameOffSetY(Direction));
+		public override float FrameOffSetX => 4;
 
-		public Direction Direction { get; set; }
+		public override int FrameCount => 8;
 
-		public int FrameCount => 8;
-
-		public float FrameOffSetX => 4;
-
-		public void Handle(State state)
+		public ZombieStateLurch(Character character) : base(character, new SpriteAnimator(character))
 		{
 		}
 	}
