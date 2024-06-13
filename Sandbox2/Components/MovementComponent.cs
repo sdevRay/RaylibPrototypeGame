@@ -1,10 +1,10 @@
 ﻿namespace RayLibTemplate.Sandbox2.Components
 {
-	internal class PlayerMovementComponent : IComponent
+	internal class MovementComponent : IComponent
 	{
 		public float Speed { get; set; }
 
-		public PlayerMovementComponent(float speed)
+		public MovementComponent(float speed)
 		{
 			Speed = speed;
 		}

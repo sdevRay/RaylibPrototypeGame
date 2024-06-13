@@ -11,9 +11,26 @@ namespace RayLibTemplate.Sandbox2.Systems
 			{
 				var transform = gameObject.GetComponent<TransformComponent>();
 				var draw = gameObject.GetComponent<DrawComponent>();
-				if (transform != null && draw != null)
+				var movement = gameObject.GetComponent<MovementComponent>();
+				var frame = gameObject.GetComponent<FrameComponent>();
+				var state = gameObject.GetComponent<StateComponent<PlayerState>>();
+				
+				if (transform != null && draw != null && movement != null && frame != null && state != null)
 				{
-					Raylib.DrawTextureEx(draw.Texture, transform.Position, transform.Rotation, transform.Scale, Color.White);
+					var frameState = frame.GetFrameForState(state.CurrentState);
+
+					frame.Timer += Raylib.GetFrameTime();
+					if (frame.Timer >= frame.FrameTime)
+					{
+						frame.Timer = 0;
+						frame.CurrentFrame = (frame.CurrentFrame + 1) % frameState.FrameCount; // Loop through frames
+					}
+
+					Rectangle sourceRec = new((frame.CurrentFrame + frameState.FrameOffSetX) * draw.FrameWidth, draw.FrameHeight * frame.FrameOffSetY, draw.FrameWidth, draw.FrameHeight);
+
+					Rectangle destRec = new(transform.Position.X, transform.Position.Y, draw.FrameWidth, draw.FrameHeight);
+					Raylib.DrawTexturePro(draw.Texture, sourceRec, destRec, draw.Origin, 0, Color.White);
+
 				}
 			}
 		}
