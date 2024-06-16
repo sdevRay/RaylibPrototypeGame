@@ -5,33 +5,46 @@ namespace RayLibTemplate.Sandbox2.Components
 {
 	internal class Sprite
 	{
+		public Texture2D Texture { get; set; }
 
+		public string Name { get; set; }
+
+		public int FrameWidth { get; }
+
+		public int FrameHeight { get; }
+
+		public Vector2 Origin => new Vector2(FrameWidth / 2, FrameHeight / 2);
+
+        public Sprite(string spriteName, int columnCount, int rowCount)
+        {
+			Texture = TextureLoader.GetTexture(spriteName);
+			Name = spriteName;
+
+			FrameWidth = Texture.Width / columnCount;
+			FrameHeight = Texture.Height / rowCount;
+		}
 	}
 
 	internal class DrawComponent : IComponent
 	{
-		public Texture2D Texture { get; set; }
+		public List<Sprite> Sprites { get; set; }
 
 		public int RowCount { get; }
 
 		public int ColumnCount { get; }
 
-		public int FrameWidth => Texture.Width / ColumnCount;
-
-		public int FrameHeight => Texture.Height / RowCount;
-
-		public Vector2 Origin => new Vector2(FrameWidth / 2, FrameHeight / 2);
-
-		public DrawComponent(string fileName, int rowCount, int columnCount)
+		public DrawComponent(int rowCount, int columnCount)
 		{
-			Texture = LoadSprite(fileName);
+			Sprites = new List<Sprite>();
+
 			RowCount = rowCount;
 			ColumnCount = columnCount;
 		}
 
-		private static Texture2D LoadSprite(string fileName)
+		public void AddSprite(string spriteName)
 		{
-			return Raylib.LoadTexture(fileName);
+			var sprite = new Sprite(spriteName, ColumnCount, RowCount);
+			Sprites.Add(sprite);
 		}
 	}
 }

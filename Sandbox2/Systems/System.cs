@@ -2,21 +2,21 @@
 {
 	internal abstract class System
 	{
-		protected List<GameObject> gameObjects = new List<GameObject>();
+		protected List<Entity> Entities = new List<Entity>();
 
-		public void AddGameObject(GameObject gameObject)
+		public void AddEntity(Entity entity)
 		{
-			gameObjects.Add(gameObject);
+			Entities.Add(entity);
 		}
 
-		public void RemoveGameObject(GameObject gameObject)
+		public void RemoveEntity(Entity entity)
 		{
-			gameObjects.Remove(gameObject);
+			Entities.Remove(entity);
 		}
 
-		public void ClearGameObjects()
+		public void ClearEntities()
 		{
-			gameObjects.Clear();
+			Entities.Clear();
 		}
 
 		public abstract void Update(float deltaTime);

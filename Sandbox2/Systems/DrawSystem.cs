@@ -1,5 +1,6 @@
 ﻿using Raylib_cs;
 using RayLibTemplate.Sandbox2.Components;
+using RayLibTemplate.Sandbox2.Enums;
 
 namespace RayLibTemplate.Sandbox2.Systems
 {
@@ -7,42 +8,68 @@ namespace RayLibTemplate.Sandbox2.Systems
 	{
 		public override void Update(float deltaTime)
 		{
-			foreach (var gameObject in gameObjects)
+			// Sort game objects by their Y position
+			var sortedEntities = Entities
+				.Where(go => go.GetComponent<TransformComponent>() != null && go.GetComponent<DrawComponent>() != null)
+				.OrderBy(go => go.GetComponent<TransformComponent>().Position.Y);
+
+			foreach (var entity in sortedEntities)
 			{
-				var transform = gameObject.GetComponent<TransformComponent>();
-				var draw = gameObject.GetComponent<DrawComponent>();
-				var movement = gameObject.GetComponent<MovementComponent>();
-				var frame = gameObject.GetComponent<FrameComponent>();
-				var state = gameObject.GetComponent<StateComponent<PlayerState>>();
-				
-				if (transform != null && draw != null && movement != null && frame != null && state != null)
+				if (entity.HasComponent<TransformComponent>()
+					&& entity.HasComponent<DrawComponent>()
+					&& entity.HasComponent<FrameComponent>()
+					&& entity.HasComponent<StateComponent>())
 				{
+					var transform = entity.GetComponent<TransformComponent>();
+					var draw = entity.GetComponent<DrawComponent>();
+					var frame = entity.GetComponent<FrameComponent>();
+					var state = entity.GetComponent<StateComponent>();
+
 					var frameState = frame.GetFrameForState(state.CurrentState);
 
 					frame.Timer += Raylib.GetFrameTime();
-					if (frame.Timer >= frame.FrameTime)
+					if (frameState.AnimationType == AnimationType.Loop)
 					{
-						frame.Timer = 0;
-						frame.CurrentFrame = (frame.CurrentFrame + 1) % frameState.FrameCount; // Loop through frames
+						if (frame.Timer >= frame.FrameTime)
+						{
+							frame.Timer = 0;
+							frame.CurrentFrame = (frame.CurrentFrame + 1) % frameState.FrameCount; // Loop through frames
+						}
+					}
+					else if (frameState.AnimationType == AnimationType.PingPong)
+					{
+						if (frame.Timer >= frame.FrameTime)
+						{
+							frame.Timer = 0;
+
+							if (frame.IsPlayingForward)
+							{
+								frame.CurrentFrame = (frame.CurrentFrame + 1) % frameState.FrameCount;
+
+								if (frame.CurrentFrame >= frameState.FrameCount - 1)
+								{
+									frame.IsPlayingForward = false;
+								}
+							}
+							else
+							{
+								frame.CurrentFrame = (frame.CurrentFrame - 1 + frameState.FrameCount) % frameState.FrameCount;
+
+								if (frame.CurrentFrame <= 0)
+								{
+									frame.IsPlayingForward = true;
+								}
+							}
+						}
 					}
 
-					Rectangle sourceRec = new((frame.CurrentFrame + frameState.FrameOffSetX) * draw.FrameWidth, draw.FrameHeight * frame.FrameOffSetY, draw.FrameWidth, draw.FrameHeight);
+					foreach (var sprite in draw.Sprites)
+					{
+						Rectangle sourceRec = new((frame.CurrentFrame + frameState.FrameOffSetX) * sprite.FrameWidth, sprite.FrameHeight * frame.FrameOffSetY, sprite.FrameWidth, sprite.FrameHeight);
 
-					Rectangle destRec = new(transform.Position.X, transform.Position.Y, draw.FrameWidth, draw.FrameHeight);
-					Raylib.DrawTexturePro(draw.Texture, sourceRec, destRec, draw.Origin, 0, Color.White);
-
-				}
-			}
-		}
-
-		public void UnloadTextures()
-		{
-			foreach (var gameObject in gameObjects)
-			{
-				var draw = gameObject.GetComponent<DrawComponent>();
-				if (draw != null)
-				{
-					Raylib.UnloadTexture(draw.Texture);
+						Rectangle destRec = new(transform.Position.X, transform.Position.Y, sprite.FrameWidth, sprite.FrameHeight);
+						Raylib.DrawTexturePro(sprite.Texture, sourceRec, destRec, sprite.Origin, 0, Color.White);
+					}
 				}
 			}
 		}

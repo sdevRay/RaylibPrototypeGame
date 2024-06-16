@@ -1,9 +1,10 @@
 ﻿using Raylib_cs;
 using RayLibTemplate.Sandbox.GameObjects.Characters;
+using RayLibTemplate.Sandbox2.Enums;
 
 namespace RayLibTemplate.Sandbox.GameObjects
 {
-	public class SpriteAnimator
+    public class SpriteAnimator
 	{
 		protected float _frameTime { get; } = 0.1f; // Time per frame
 

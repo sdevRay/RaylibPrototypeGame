@@ -1,10 +1,11 @@
 ﻿using Raylib_cs;
 using RayLibTemplate.Sandbox.GameObjects.Characters;
+using RayLibTemplate.Sandbox2.Enums;
 using System.Numerics;
 
 namespace RayLibTemplate.Sandbox
 {
-	static class Input
+    static class Input
 	{
 		static readonly List<(List<KeyboardKey> Keys, Direction Direction)> _keyMappings =
 		[

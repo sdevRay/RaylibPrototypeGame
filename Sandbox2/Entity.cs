@@ -3,7 +3,7 @@ using RayLibTemplate.Sandbox2.Components;
 
 namespace RayLibTemplate.Sandbox2
 {
-    internal class GameObject
+    internal class Entity
 	{
 		private static int NextId = 0;
 
@@ -11,7 +11,7 @@ namespace RayLibTemplate.Sandbox2
 
 		private readonly List<IComponent> _components = [];
 
-		public GameObject()
+		public Entity()
 		{
 			Id = NextId++;
 		}
@@ -24,7 +24,7 @@ namespace RayLibTemplate.Sandbox2
 		public T GetComponent<T>() where T : class, IComponent
 		{
 			var component = _components.Find(component => component is T) as T;
-			return component ?? throw new InvalidOperationException($"Component of type {typeof(T).Name} not found in GameObject {Id}");
+			return component ?? throw new InvalidOperationException($"Component of type {typeof(T).Name} not found in Entity {Id}");
 		}
 
 		public bool HasComponent<T>() where T : class, IComponent

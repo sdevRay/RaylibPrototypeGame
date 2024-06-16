@@ -1,23 +1,26 @@
-﻿using RayLibTemplate.Sandbox;
+﻿using RayLibTemplate.Sandbox2.Enums;
 
 namespace RayLibTemplate.Sandbox2.Components
 {
-	internal class FrameState
+    internal class FrameState
 	{
-		public int FrameOffSetX { get; set; }
+		public int FrameOffSetX { get; }
 
-		public int FrameCount { get; set; }
+		public int FrameCount { get; }
 
-        public FrameState(int frameCount, int frameOffSetX)
+		public AnimationType AnimationType { get; }
+
+        public FrameState(int frameCount, int frameOffSetX, AnimationType animationType)
         {
 			FrameCount = frameCount;
 			FrameOffSetX = frameOffSetX;
-        }
+			AnimationType = animationType;
+		}
     }
 
 	internal class FrameComponent : IComponent
 	{
-		public Dictionary<PlayerState, FrameState> FrameByState { get; set; }
+		public Dictionary<IState, FrameState> FrameByState { get; set; }
 
 		public Direction Direction { get; set; }
 
@@ -27,12 +30,14 @@ namespace RayLibTemplate.Sandbox2.Components
 
 		public float CurrentFrame { get; set; }
 
+		public bool IsPlayingForward { get; set; }
+
 		public FrameComponent()
         {
-			FrameByState = new Dictionary<PlayerState, FrameState>();
+			FrameByState = new Dictionary<IState, FrameState>();
         }
 
-		public void AddFrameState(PlayerState state, FrameState frameState)
+		public void AddFrameState(IState state, FrameState frameState)
 		{
 			if (!FrameByState.ContainsKey(state))
 			{
@@ -40,7 +45,7 @@ namespace RayLibTemplate.Sandbox2.Components
 			}
 		}
 
-		public FrameState GetFrameForState(PlayerState state)
+		public FrameState GetFrameForState(IState state)
 		{
 			if (FrameByState.TryGetValue(state, out FrameState? value))
 			{

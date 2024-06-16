@@ -1,6 +1,8 @@
-﻿namespace RayLibTemplate.Sandbox.GameObjects.Characters
+﻿using RayLibTemplate.Sandbox2.Enums;
+
+namespace RayLibTemplate.Sandbox.GameObjects.Characters
 {
-	public abstract class Character
+    public abstract class Character
 	{
 		public abstract IEnumerable<Sprite> Sprites { get; }
 				
