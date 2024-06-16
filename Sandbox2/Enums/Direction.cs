@@ -1,4 +1,4 @@
-﻿namespace RayLibTemplate.Sandbox
+﻿namespace RayLibTemplate.Sandbox2.Enums
 {
     public enum Direction
     {

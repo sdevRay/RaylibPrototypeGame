@@ -1,9 +1,10 @@
 ﻿using Raylib_cs;
+using RayLibTemplate.Sandbox2.Enums;
 using System.Numerics;
 
 namespace RayLibTemplate.Sandbox.GameObjects.Characters.Player.States
 {
-	internal class PlayerStateRunning : State
+    internal class PlayerStateRunning : State
 	{
 		public override float FrameOffSetX => 4;
 

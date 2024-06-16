@@ -1,7 +1,9 @@
 ﻿using Raylib_cs;
-using RayLibTemplate.Sandbox;
 using RayLibTemplate.Sandbox2;
+using RayLibTemplate.Sandbox2.Entites;
+using RayLibTemplate.Sandbox2.Player;
 using RayLibTemplate.Sandbox2.Systems;
+using System.Numerics;
 
 namespace RayLibTemplate
 {
@@ -13,12 +15,21 @@ namespace RayLibTemplate
 			Raylib.InitWindow(800, 600, "Raylib C# Prototype");
 			Raylib.SetTargetFPS(60);
 
+			var player = new Player();
+
 			DrawSystem drawSystem = new DrawSystem();
 			MovementSystem movementSystem = new MovementSystem();
+			AIMovementSystem aiMovementSystem = new AIMovementSystem(player);
+			CollisionSystem collisionSystem = new CollisionSystem();
 
-			var player = new Player();
-			drawSystem.AddGameObject(player);
-			movementSystem.AddGameObject(player);
+			drawSystem.AddEntity(player);
+			movementSystem.AddEntity(player);
+			collisionSystem.AddEntity(player);
+
+			var zombie = new Zombie(new Vector2(300, 300));
+			drawSystem.AddEntity(zombie);
+			aiMovementSystem.AddEntity(zombie);
+			collisionSystem.AddEntity(zombie);
 
 			// Main game loop
 			while (!Raylib.WindowShouldClose())
@@ -26,6 +37,8 @@ namespace RayLibTemplate
 				float deltaTime = Raylib.GetFrameTime();
 
 				movementSystem.Update(deltaTime);
+				aiMovementSystem.Update(deltaTime);
+				collisionSystem.Update(deltaTime);
 
 				// Drawing
 				Raylib.BeginDrawing();
@@ -37,8 +50,7 @@ namespace RayLibTemplate
 			}
 
 			// Unload texture and close window
-			drawSystem.UnloadTextures();
-
+			TextureLoader.UnloadAllTextures();			
 			Raylib.CloseWindow();
 		}
 	}

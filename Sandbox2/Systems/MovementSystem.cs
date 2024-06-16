@@ -1,6 +1,7 @@
 ﻿using Raylib_cs;
-using RayLibTemplate.Sandbox;
 using RayLibTemplate.Sandbox2.Components;
+using RayLibTemplate.Sandbox2.Enums;
+using RayLibTemplate.Sandbox2.Player;
 using System.Numerics;
 
 namespace RayLibTemplate.Sandbox2.Systems
@@ -21,16 +22,25 @@ namespace RayLibTemplate.Sandbox2.Systems
 
 		public override void Update(float deltaTime)
 		{
-			foreach (var gameObject in gameObjects)
+			foreach (var entity in Entities)
 			{
-				var transform = gameObject.GetComponent<TransformComponent>();
-				var movement = gameObject.GetComponent<MovementComponent>();
-				var state = gameObject.GetComponent<StateComponent<PlayerState>>();
-				var frame = gameObject.GetComponent<FrameComponent>();
-
 				var movementDirection = Vector2.Zero;
-				if (transform != null && movement != null && state != null && frame != null)
+				if (entity.HasComponent<TransformComponent>()
+					&& entity.HasComponent<MovementComponent>() 
+					&& entity.HasComponent<StateComponent>()
+					&& entity.HasComponent<FrameComponent>())
 				{
+					var transform = entity.GetComponent<TransformComponent>();
+					var movement = entity.GetComponent<MovementComponent>();
+					var state = entity.GetComponent<StateComponent>();
+					var frame = entity.GetComponent<FrameComponent>();
+
+					// TODO: Working here
+					if (Raylib.IsMouseButtonDown(MouseButton.Left))
+					{
+						state.ChangeState(PlayerStates.MeleeSwing);
+					}
+
 					foreach (var mapping in _keyMapping)
 					{
 						if (mapping.Keys.All(key => Raylib.IsKeyDown(key)))
@@ -43,17 +53,16 @@ namespace RayLibTemplate.Sandbox2.Systems
 
 					if (movementDirection != Vector2.Zero)
 					{
-						if (state.CurrentState != PlayerState.Running)
-							state.ChangeState(PlayerState.Running);
+						if(state.CurrentState.Equals(PlayerStates.Stance))
+							state.ChangeState(PlayerStates.Running);
 
 						movementDirection = Vector2.Normalize(movementDirection); // Normalize the direction vector
 						transform.Position += movementDirection * movement.Speed * deltaTime; // Apply delta time
-
 					}
 					else
 					{
-						if (state.CurrentState != PlayerState.Stance)
-							state.ChangeState(PlayerState.Stance);
+						if (state.CurrentState.Equals(PlayerStates.Running))
+							state.ChangeState(PlayerStates.Stance);
 					}
 				}
 			}
