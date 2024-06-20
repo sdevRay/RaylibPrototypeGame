@@ -32,6 +32,8 @@ namespace RayLibTemplate.Sandbox2.Components
 
 		public bool IsPlayingForward { get; set; }
 
+		public bool HasCompletedPingPong { get; set; }
+
 		public FrameComponent()
         {
 			FrameByState = new Dictionary<IState, FrameState>();

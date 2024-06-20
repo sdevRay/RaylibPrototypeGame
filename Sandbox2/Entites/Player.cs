@@ -2,9 +2,9 @@
 using RayLibTemplate.Sandbox2.Enums;
 using System.Numerics;
 
-namespace RayLibTemplate.Sandbox2.Player
+namespace RayLibTemplate.Sandbox2.Entities
 {
-    record PlayerStateStance(string Name) : IState;
+	record PlayerStateStance(string Name) : IState;
     record PlayerStateRunning(string Name) : IState;
     record PlayerStateMeleeSwing(string Name) : IState;
 
@@ -19,13 +19,15 @@ namespace RayLibTemplate.Sandbox2.Player
     {
 		public Player()
         {
-            AddComponent(new TransformComponent(new Vector2(100, 100)));
-            AddComponent(new MovementComponent(150));
+            AddComponent(new TransformComponent() { Position = new Vector2(100, 100) });
+            AddComponent(new MovementComponent() { Speed = 150 });
 			AddComponent(new StateComponent(PlayerStates.Stance));
-            AddComponent(new CollisionComponent(radius: 10f));
+            AddComponent(new CollisionComponent() { Radius = 10 });
+			AddComponent(new HealthComponent() { Health = 100 });
+			AddComponent(new AttackComponent() {  Damage = 25, AttackRange = 60f, Cooldown = 0.5f, CurrentCooldown = 0 });
+			AddComponent(new AreaOfEffectComponent() {  Radius = 50 });
 
-
-            AddComponent(new DrawComponent(rowCount: 8, columnCount: 32));
+			AddComponent(new DrawComponent(rowCount: 8, columnCount: 32));
             var draw = GetComponent<DrawComponent>();
             draw.AddSprite("MaleHead1");
             draw.AddSprite("LongSword");
@@ -36,6 +38,6 @@ namespace RayLibTemplate.Sandbox2.Player
             frame.AddFrameState(PlayerStates.Stance, new FrameState(4, 0, AnimationType.PingPong));
             frame.AddFrameState(PlayerStates.Running, new FrameState(8, 4, AnimationType.Loop));
             frame.AddFrameState(PlayerStates.MeleeSwing, new FrameState(4, 12, AnimationType.PingPong));
-        }
-    }
+		}
+	}
 }

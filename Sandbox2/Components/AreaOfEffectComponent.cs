@@ -1,6 +1,6 @@
 ﻿namespace RayLibTemplate.Sandbox2.Components
 {
-	internal class CollisionComponent : IComponent
+	internal class AreaOfEffectComponent : IComponent
 	{
 		public float Radius { get; set; }
 	}

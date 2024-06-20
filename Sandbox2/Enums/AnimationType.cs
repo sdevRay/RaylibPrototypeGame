@@ -3,6 +3,7 @@
 	internal enum AnimationType
 	{
 		Loop,
-		PingPong
+		PingPong,
+		SingleShot
 	}
 }
