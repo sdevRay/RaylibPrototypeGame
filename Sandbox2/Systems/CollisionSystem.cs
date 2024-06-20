@@ -14,13 +14,16 @@ namespace RayLibTemplate.Sandbox2.Systems
 					var entityA = Entities[i];
 					var entityB = Entities[j];
 
-					var transformA = entityA.GetComponent<TransformComponent>();
-					var collisionA = entityA.GetComponent<CollisionComponent>();
-					var transformB = entityB.GetComponent<TransformComponent>();
-					var collisionB = entityB.GetComponent<CollisionComponent>();
-
-					if (transformA != null && collisionA != null && transformB != null && collisionB != null)
+					if(entityA.HasComponent<TransformComponent>()
+						&& entityA.HasComponent<CollisionComponent>() 
+						&& entityB.HasComponent<TransformComponent>() 
+						&& entityB.HasComponent<CollisionComponent>())
 					{
+						var transformA = entityA.GetComponent<TransformComponent>();
+						var collisionA = entityA.GetComponent<CollisionComponent>();
+						var transformB = entityB.GetComponent<TransformComponent>();
+						var collisionB = entityB.GetComponent<CollisionComponent>();
+
 						if (IsColliding(transformA.Position, collisionA.Radius, transformB.Position, collisionB.Radius, out Vector2 penetrationDepth))
 						{
 							//HandleCollision(gameObjectA, gameObjectB);

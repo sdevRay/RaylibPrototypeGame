@@ -58,7 +58,27 @@ namespace RayLibTemplate.Sandbox2.Systems
 								if (frame.CurrentFrame <= 0)
 								{
 									frame.IsPlayingForward = true;
+
+									if (!frame.HasCompletedPingPong)
+										frame.HasCompletedPingPong = true;
 								}
+							}
+						}
+					}
+					else if (frameState.AnimationType == AnimationType.SingleShot)
+					{
+						if (frame.Timer >= frame.FrameTime)
+						{
+							if (frame.CurrentFrame < frameState.FrameCount - 1)
+							{
+								frame.Timer = 0;
+								frame.CurrentFrame++; // Move to the next frame
+							}
+							else
+							{
+								// Keep the animation on the last frame and do not reset the timer.
+								// This ensures the animation stops on the last frame.
+								// Optionally, you can add logic here to handle what happens when the animation ends.
 							}
 						}
 					}

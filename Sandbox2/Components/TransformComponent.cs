@@ -6,15 +6,10 @@ namespace RayLibTemplate.Sandbox2.Components
     {
         public Vector2 Position { get; set; }
 
-        public float Rotation { get; set; }
+        public float Rotation { get; set; } = 0;
 
-        public float Scale { get; set; }
+        public float Scale { get; set; } = 1;
 
-        public TransformComponent(Vector2 position, float rotation = 0, float scale = 1)
-        {
-            Position = position;
-            Rotation = rotation;
-			Scale = scale;
-		}
-    }
+		public Vector2 FacingDirection { get; set; } // The direction the entity is facing
+	}
 }
