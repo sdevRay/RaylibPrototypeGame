@@ -11,6 +11,11 @@ namespace RayLibTemplate.Sandbox2.Components
 			CurrentState = initialState;
 		}
 
+		public bool Equals(IState state)
+		{
+			return CurrentState.Equals(state);
+		}
+
 		public void ChangeState(IState newState)
 		{
 			CurrentState = newState;

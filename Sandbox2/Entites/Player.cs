@@ -25,7 +25,6 @@ namespace RayLibTemplate.Sandbox2.Entities
             AddComponent(new CollisionComponent() { Radius = 10 });
 			AddComponent(new HealthComponent() { Health = 100 });
 			AddComponent(new AttackComponent() {  Damage = 25, AttackRange = 60f, Cooldown = 0.5f, CurrentCooldown = 0 });
-			AddComponent(new AreaOfEffectComponent() {  Radius = 50 });
 
 			AddComponent(new DrawComponent(rowCount: 8, columnCount: 32));
             var draw = GetComponent<DrawComponent>();

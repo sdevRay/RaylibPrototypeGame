@@ -21,9 +21,9 @@ namespace RayLibTemplate.Sandbox2.Entites
 			AddComponent(new TransformComponent() { Position = position });
 			AddComponent(new MovementComponent() { Speed = 25 });
 			AddComponent(new StateComponent(ZombieStates.Stance));
-			AddComponent(new AIComponent() { AggroDistance = 100 });
+			AddComponent(new AIComponent() { AggroDistance = 200 });
 			AddComponent(new CollisionComponent() { Radius = 10 });
-			AddComponent(new HealthComponent() { Health = 100 });
+			AddComponent(new HealthComponent() { Health = 50 });
 			AddComponent(new AttackComponent() { AttackRange = 20 });
 
 			AddComponent(new DrawComponent(rowCount: 8, columnCount: 36));

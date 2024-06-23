@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using RayLibTemplate.Sandbox2.Enums;
+using System.Numerics;
 
 namespace RayLibTemplate.Sandbox2.Components
 {
@@ -10,6 +11,6 @@ namespace RayLibTemplate.Sandbox2.Components
 
         public float Scale { get; set; } = 1;
 
-		public Vector2 FacingDirection { get; set; } // The direction the entity is facing
+		public Direction Direction { get; set; }
 	}
 }

@@ -22,8 +22,6 @@ namespace RayLibTemplate.Sandbox2.Components
 	{
 		public Dictionary<IState, FrameState> FrameByState { get; set; }
 
-		public Direction Direction { get; set; }
-
 		public float FrameTime { get; } = 0.1f; // Time per frame
 
 		public float Timer { get; set; }
@@ -57,25 +55,6 @@ namespace RayLibTemplate.Sandbox2.Components
 			{
 				throw new KeyNotFoundException($"No FrameState found for PlayerState: {state}");
 			}
-		}
-
-		public int FrameOffSetY 
-		{ 
-			get 
-			{
-				return Direction switch
-				{
-					Direction.Left => 0,
-					Direction.UpLeft => 1,
-					Direction.Up => 2,
-					Direction.UpRight => 3,
-					Direction.Right => 4,
-					Direction.DownRight => 5,
-					Direction.Down => 6,
-					Direction.DownLeft => 7,
-					_ => throw new InvalidOperationException($"Unhandled direction: {Direction}")
-				};
-			} 
 		}
 	}
 }

@@ -28,26 +28,27 @@ namespace RayLibTemplate
 			collisionSystem.AddEntity(player);
 			cooldownSystem.AddEntity(player);
 
-			var zombie = new Zombie(new Vector2(300, 300));
-			drawSystem.AddEntity(zombie);
-			aiMovementSystem.AddEntity(zombie);
-			collisionSystem.AddEntity(zombie);
-			attackSystem.AddEntity(zombie);
-			cooldownSystem.AddEntity(zombie);
+			for (int i = 0; i < 40; i++)
+			{
+				var zombie = new Zombie(new Vector2(0 + i * 20, 300));
+				drawSystem.AddEntity(zombie);
+				aiMovementSystem.AddEntity(zombie);
+				collisionSystem.AddEntity(zombie);
+				attackSystem.AddEntity(zombie);
+				cooldownSystem.AddEntity(zombie);
+			}
 
-			var zombie1 = new Zombie(new Vector2(290, 300));
-			drawSystem.AddEntity(zombie1);
-			aiMovementSystem.AddEntity(zombie1);
-			collisionSystem.AddEntity(zombie1);
-			attackSystem.AddEntity(zombie1);
-			cooldownSystem.AddEntity(zombie1);
+			for (int i = 0; i < 40; i++)
+			{
+				var zombie = new Zombie(new Vector2(0 + i * 20, 400));
+				drawSystem.AddEntity(zombie);
+				aiMovementSystem.AddEntity(zombie);
+				collisionSystem.AddEntity(zombie);
+				attackSystem.AddEntity(zombie);
+				cooldownSystem.AddEntity(zombie);
+			}
 
-			var zombie2 = new Zombie(new Vector2(350, 300));
-			drawSystem.AddEntity(zombie2);
-			aiMovementSystem.AddEntity(zombie2);
-			collisionSystem.AddEntity(zombie2);
-			attackSystem.AddEntity(zombie2);
-			cooldownSystem.AddEntity(zombie2);
+
 
 			// Main game loop
 			while (!Raylib.WindowShouldClose())

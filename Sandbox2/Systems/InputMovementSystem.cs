@@ -29,36 +29,40 @@ namespace RayLibTemplate.Sandbox2.Systems
 
 		public override void Update(float deltaTime)
 		{
-			if (Player.HasComponent<TransformComponent>()
-				&& Player.HasComponent<MovementComponent>()
-				&& Player.HasComponent<StateComponent>()
-				&& Player.HasComponent<FrameComponent>()
-				&& Player.HasComponent<AttackComponent>())
+			if (!(Player.HasComponent<TransformComponent>() 
+				&& Player.HasComponent<MovementComponent>() 
+				&& Player.HasComponent<StateComponent>()))
 			{
-				var transform = Player.GetComponent<TransformComponent>();
-				var movement = Player.GetComponent<MovementComponent>();
-				var state = Player.GetComponent<StateComponent>();
-				var frame = Player.GetComponent<FrameComponent>();
+				return;
+			}
 
-				var movementDirection = GetMovementDirection();
+			var transform = Player.GetComponent<TransformComponent>();
+			var movement = Player.GetComponent<MovementComponent>();
+			var state = Player.GetComponent<StateComponent>();
 
-				if (movementDirection != Vector2.Zero)
+			Vector2 movementDirection = GetMovementDirection();
+			Vector2 targetPosition = movementDirection != Vector2.Zero ? transform.Position + movementDirection : Raylib.GetMousePosition();
+			float angle = MathF.Atan2(targetPosition.Y - transform.Position.Y, targetPosition.X - transform.Position.X);
+
+			Direction newDirection = GetDirectionFromAngle(angle);
+			if (transform.Direction != newDirection)
+			{
+				transform.Direction = newDirection;
+			}
+
+			if (movementDirection != Vector2.Zero)
+			{
+				if (!state.Equals(PlayerStates.Running))
 				{
-					if (state.CurrentState.Equals(PlayerStates.MeleeSwing) && frame.CurrentFrame <= 2)
-						return;
-
-					if (!state.CurrentState.Equals(PlayerStates.Running))
-						state.ChangeState(PlayerStates.Running);
-
-					movementDirection = Vector2.Normalize(movementDirection); // Normalize the direction vector
-					transform.FacingDirection = movementDirection;
-					frame.Direction = DetermineDirection(movementDirection);
-					transform.Position += movementDirection * movement.Speed * deltaTime; // Apply delta time
+					state.ChangeState(PlayerStates.Running);
 				}
-				else if (state.CurrentState.Equals(PlayerStates.Running))
-				{
-					state.ChangeState(PlayerStates.Stance);
-				}
+
+				movementDirection = Vector2.Normalize(movementDirection);
+				transform.Position += movementDirection * movement.Speed * deltaTime;
+			}
+			else if (state.Equals(PlayerStates.Running))
+			{
+				state.ChangeState(PlayerStates.Stance);
 			}
 		}
 
@@ -80,30 +84,30 @@ namespace RayLibTemplate.Sandbox2.Systems
 			return new Vector2(x, y);
 		}
 
-		public static Direction DetermineDirection(Vector2 movementDirection)
+		public static Direction GetDirectionFromAngle(float angleInRadians)
 		{
-			// Calculate the angle in radians and then convert to degrees
-			float angle = MathF.Atan2(movementDirection.Y, movementDirection.X) * (180 / MathF.PI);
+			// Convert angle from radians to degrees
+			float degrees = angleInRadians * (180f / MathF.PI);
 
 			// Normalize the angle to be within the range [0, 360)
-			if (angle < 0) angle += 360;
+			degrees = (degrees + 360) % 360;
 
 			// Determine the direction based on the angle
-			if (angle >= 337.5 || angle < 22.5)
+			if (degrees >= 337.5 || degrees < 22.5)
 				return Direction.Right;
-			else if (angle >= 22.5 && angle < 67.5)
+			else if (degrees >= 22.5 && degrees < 67.5)
 				return Direction.DownRight;
-			else if (angle >= 67.5 && angle < 112.5)
+			else if (degrees >= 67.5 && degrees < 112.5)
 				return Direction.Down;
-			else if (angle >= 112.5 && angle < 157.5)
+			else if (degrees >= 112.5 && degrees < 157.5)
 				return Direction.DownLeft;
-			else if (angle >= 157.5 && angle < 202.5)
+			else if (degrees >= 157.5 && degrees < 202.5)
 				return Direction.Left;
-			else if (angle >= 202.5 && angle < 247.5)
+			else if (degrees >= 202.5 && degrees < 247.5)
 				return Direction.UpLeft;
-			else if (angle >= 247.5 && angle < 292.5)
+			else if (degrees >= 247.5 && degrees < 292.5)
 				return Direction.Up;
-			else // angle >= 292.5 && angle < 337.5
+			else // degrees >= 292.5 && degrees < 337.5
 				return Direction.UpRight;
 		}
 	}
