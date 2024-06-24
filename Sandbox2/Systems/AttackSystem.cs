@@ -23,56 +23,71 @@ namespace RayLibTemplate.Sandbox2.Systems
 			var frame = Player.GetComponent<FrameComponent>();
 			var state = Player.GetComponent<StateComponent>();
 
-			// Check for space key press to initiate attack
-			if (Raylib.IsMouseButtonPressed(MouseButton.Left))
+			if (Raylib.IsMouseButtonDown(MouseButton.Left) && !state.Equals(PlayerStates.Running))
 			{
-				frame.CurrentFrame = 0;
-				frame.IsPlayingForward = true;
-				frame.Timer = 0;
-				frame.HasCompletedPingPong = false;
-				_initialAttack = true;
-
-				state.ChangeState(PlayerStates.MeleeSwing);
-			}
-			else if (state.Equals(PlayerStates.MeleeSwing))
-			{
-				if (frame.HasCompletedPingPong)
+				if (!state.Equals(PlayerStates.MeleeSwing))
 				{
-					// Return to stance state after completing melee swing animation
-					state.ChangeState(PlayerStates.Stance);
+					frame.CurrentFrame = 0;
+					frame.IsPlayingForward = true;
+					frame.Timer = 0;
+					frame.HasCompletedPingPong = false;
+					_initialAttack = false;
+
+					state.ChangeState(PlayerStates.MeleeSwing);
 				}
 
-				if (_initialAttack && frame.CurrentFrame >= 2)
+				if (frame.IsPlayingForward && frame.CurrentFrame == 2 && _initialAttack == false)
 				{
-					foreach(var entity in Entities)
+					_initialAttack = true;
+
+					foreach (var entity in Entities)
 					{
-						// Check for collision with enemy
 						if (entity is Zombie zombie && IsFacingTowardsAndWithinRange(zombie))
 						{
-							var q = zombie.GetComponent<StateComponent>();
-							if (q.Equals(ZombieStates.HitAndDie))
+							if(!(zombie.HasComponent<StateComponent>()
+								&& zombie.HasComponent<HealthComponent>()
+								&& zombie.HasComponent<FrameComponent>()))
 							{
 								continue;
 							}
 
-							var t = zombie.GetComponent<HealthComponent>();
-							var z = Player.GetComponent<AttackComponent>();	
-							t.Health -= z.Damage;
+							var zombieState = zombie.GetComponent<StateComponent>();
+							var zombieHealth = zombie.GetComponent<HealthComponent>();
+							var zombieFrame = zombie.GetComponent<FrameComponent>();
 
-							if(t.Health <= 0 && !q.Equals(ZombieStates.HitAndDie))
+							if (zombieState.Equals(ZombieStates.HitAndDie))
 							{
-								q.ChangeState(ZombieStates.HitAndDie);
-								var f = zombie.GetComponent<FrameComponent>();
-								f.CurrentFrame = 0;
-								f.IsPlayingForward = true;
-								//Entities.Remove(entity);
+								continue;
+							}
+
+							var playerAttack = Player.GetComponent<AttackComponent>();
+							zombieHealth.Health -= playerAttack.Damage;
+
+							if (zombieHealth.Health <= 0 && !zombieState.Equals(ZombieStates.HitAndDie))
+							{
+								zombieState.ChangeState(ZombieStates.HitAndDie);
+
+								zombieFrame.CurrentFrame = 0;
+								zombieFrame.IsPlayingForward = true;
 							}
 
 							Console.WriteLine("Zombie is within range and facing player");
 						}
+
 					}
-					
+				}
+
+				if (frame.HasCompletedPingPong)
+				{
 					_initialAttack = false;
+					frame.HasCompletedPingPong = false;
+				}
+			}
+			else
+			{
+				if (state.Equals(PlayerStates.MeleeSwing))
+				{
+					state.ChangeState(PlayerStates.Stance);
 				}
 			}
 		}

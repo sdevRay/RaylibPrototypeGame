@@ -61,7 +61,7 @@ namespace RayLibTemplate.Sandbox2.Systems
 
 		private static void ChangeStateIfNeeded(StateComponent state, IState targetState)
 		{
-			if (state.CurrentState != targetState)
+			if (!state.Equals(targetState))
 			{
 				state.ChangeState(targetState);
 			}

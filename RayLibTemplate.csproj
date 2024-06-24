@@ -8,16 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Sandbox\GameObjects\Characters\Enemies\Zombie\States\ZombieStateBite.cs" />
-    <Compile Remove="Sandbox\GameObjects\Characters\Enemies\Zombie\States\ZombieStateBlock.cs" />
-    <Compile Remove="Sandbox\GameObjects\Characters\Enemies\Zombie\States\ZombieStateCriticalDeath.cs" />
-    <Compile Remove="Sandbox\GameObjects\Characters\Enemies\Zombie\States\ZombieStateHitAndDie.cs" />
-    <Compile Remove="Sandbox\GameObjects\Characters\Player\States\PlayerStateCastSpell.cs" />
-    <Compile Remove="Sandbox\GameObjects\Characters\Player\States\PlayerStateHitAndDie.cs" />
-    <Compile Remove="Sandbox\GameObjects\Characters\Player\States\PlayerStateShootBow.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Raylib-cs" Version="6.1.0" />
   </ItemGroup>
 

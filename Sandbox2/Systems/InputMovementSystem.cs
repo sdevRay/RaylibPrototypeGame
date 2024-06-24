@@ -29,8 +29,8 @@ namespace RayLibTemplate.Sandbox2.Systems
 
 		public override void Update(float deltaTime)
 		{
-			if (!(Player.HasComponent<TransformComponent>() 
-				&& Player.HasComponent<MovementComponent>() 
+			if (!(Player.HasComponent<TransformComponent>()
+				&& Player.HasComponent<MovementComponent>()
 				&& Player.HasComponent<StateComponent>()))
 			{
 				return;

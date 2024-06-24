@@ -62,7 +62,7 @@ namespace RayLibTemplate.Sandbox2.Systems
 							{
 								frame.IsPlayingForward = true;
 
-								if (!frame.HasCompletedPingPong)
+								if (frame.HasCompletedPingPong == false)
 									frame.HasCompletedPingPong = true;
 							}
 						}
