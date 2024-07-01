@@ -1,8 +1,6 @@
 ﻿using Raylib_cs;
-using RayLibTemplate.Sandbox2;
-using RayLibTemplate.Sandbox2.Entites;
-using RayLibTemplate.Sandbox2.Entities;
-using RayLibTemplate.Sandbox2.Systems;
+using RayLibTemplate.Entites;
+using RayLibTemplate.Systems;
 using System.Numerics;
 
 namespace RayLibTemplate
@@ -23,6 +21,7 @@ namespace RayLibTemplate
 			CollisionSystem collisionSystem = new CollisionSystem();
 			AttackSystem attackSystem = new AttackSystem(player);
 			CooldownSystem cooldownSystem = new CooldownSystem();
+			AIAttackSystem aIAttackSystem = new AIAttackSystem(player);
 
 			drawSystem.AddEntity(player);
 			collisionSystem.AddEntity(player);
@@ -36,6 +35,7 @@ namespace RayLibTemplate
 				collisionSystem.AddEntity(zombie);
 				attackSystem.AddEntity(zombie);
 				cooldownSystem.AddEntity(zombie);
+				aIAttackSystem.AddEntity(zombie);
 			}
 
 			for (int i = 0; i < 40; i++)
@@ -46,6 +46,7 @@ namespace RayLibTemplate
 				collisionSystem.AddEntity(zombie);
 				attackSystem.AddEntity(zombie);
 				cooldownSystem.AddEntity(zombie);
+				aIAttackSystem.AddEntity(zombie);
 			}
 
 
@@ -59,7 +60,8 @@ namespace RayLibTemplate
 				aiMovementSystem.Update(deltaTime);
 				collisionSystem.Update(deltaTime);
 				attackSystem.Update(deltaTime);
-				cooldownSystem.Update(deltaTime);	
+				cooldownSystem.Update(deltaTime);
+				aIAttackSystem.Update(deltaTime);
 
 				Raylib.BeginDrawing();
 				Raylib.ClearBackground(Color.RayWhite);

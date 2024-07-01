@@ -1,4 +1,4 @@
-﻿namespace RayLibTemplate.Sandbox2.Components
+﻿namespace RayLibTemplate.Components
 {
     internal interface IComponent
     {
