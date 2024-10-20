@@ -33,7 +33,7 @@ namespace RaylibPrototypeGame.Entites
     {
         public Player()
         {
-            AddComponent(new TransformComponent() { Position = new Vector2(100, 100) });
+            AddComponent(new TransformComponent() { Position = new Vector2(Program.ScreenWidth / 2, Program.ScreenHeight / 2) });
             AddComponent(new MovementComponent() { Speed = 150 });
             AddComponent(new StateComponent(PlayerStates.Stance));
             AddComponent(new CollisionComponent() { Radius = 10 });
