@@ -1,4 +1,4 @@
-﻿namespace RayLibTemplate.Components
+﻿namespace RaylibPrototypeGame.Components
 {
     internal interface IComponent
     {

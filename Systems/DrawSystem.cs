@@ -1,8 +1,8 @@
 ﻿using Raylib_cs;
-using RayLibTemplate.Components;
-using RayLibTemplate.Enums;
+using RaylibPrototypeGame.Components;
+using RaylibPrototypeGame.Enums;
 
-namespace RayLibTemplate.Systems
+namespace RaylibPrototypeGame.Systems
 {
     internal class DrawSystem : System
     {
@@ -10,8 +10,8 @@ namespace RayLibTemplate.Systems
         {
             // Sort game objects by their Y position
             var sortedEntities = Entities
-                .Where(go => go.GetComponent<TransformComponent>() != null && go.GetComponent<DrawComponent>() != null)
-                .OrderBy(go => go.GetComponent<TransformComponent>().Position.Y);
+                .Where(entity => entity.GetComponent<TransformComponent>() != null && entity.GetComponent<DrawComponent>() != null)
+                .OrderBy(entity => entity.GetComponent<TransformComponent>().Position.Y);
 
             foreach (var entity in sortedEntities)
             {

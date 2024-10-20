@@ -1,6 +1,6 @@
-﻿using RayLibTemplate.Components;
+﻿using RaylibPrototypeGame.Components;
 
-namespace RayLibTemplate.Entites
+namespace RaylibPrototypeGame.Entites
 {
     internal class Entity
     {
@@ -8,7 +8,7 @@ namespace RayLibTemplate.Entites
 
         public int Id { get; private set; }
 
-        private readonly List<IComponent> _components = [];
+        private readonly List<IComponent> _components = new List<IComponent>();
 
         public Entity()
         {

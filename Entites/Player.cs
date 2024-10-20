@@ -1,5 +1,5 @@
-﻿using RayLibTemplate.Components;
-using RayLibTemplate.Enums;
+﻿using RaylibPrototypeGame.Components;
+using RaylibPrototypeGame.Enums;
 using System.Numerics;
 
 // 32-frame animation in 8 directions
@@ -11,7 +11,7 @@ using System.Numerics;
 //Cast Spell (4 frames)
 //Shoot Bow (4 frames)
 
-namespace RayLibTemplate.Entites
+namespace RaylibPrototypeGame.Entites
 {
 	record PlayerStateStance(string Name) : IState;
 
@@ -37,7 +37,7 @@ namespace RayLibTemplate.Entites
             AddComponent(new MovementComponent() { Speed = 150 });
             AddComponent(new StateComponent(PlayerStates.Stance));
             AddComponent(new CollisionComponent() { Radius = 10 });
-            AddComponent(new HealthComponent() { Health = 100 });
+            AddComponent(new HealthComponent() { Health = 50 });
             AddComponent(new AttackComponent() { Damage = 25, AttackRange = 50f, Cooldown = 0.5f, CurrentCooldown = 0 });
 
             AddComponent(new DrawComponent(rowCount: 8, columnCount: 32));

@@ -1,9 +1,9 @@
-﻿using RayLibTemplate.Components;
-using RayLibTemplate.Entites;
-using RayLibTemplate.Extensions;
+﻿using RaylibPrototypeGame.Components;
+using RaylibPrototypeGame.Entites;
+using RaylibPrototypeGame.Extensions;
 using System.Numerics;
 
-namespace RayLibTemplate.Systems
+namespace RaylibPrototypeGame.Systems
 {
     internal class AIMovementSystem : System
     {

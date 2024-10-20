@@ -1,7 +1,7 @@
-﻿using RayLibTemplate.Components;
+﻿using RaylibPrototypeGame.Components;
 using System.Numerics;
 
-namespace RayLibTemplate.Systems
+namespace RaylibPrototypeGame.Systems
 {
     internal class CollisionSystem : System
     {

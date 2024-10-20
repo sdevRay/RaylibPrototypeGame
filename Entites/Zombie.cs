@@ -1,5 +1,5 @@
-﻿using RayLibTemplate.Components;
-using RayLibTemplate.Enums;
+﻿using RaylibPrototypeGame.Components;
+using RaylibPrototypeGame.Enums;
 using System.Numerics;
 
 // 8 direction, 36 frames per direction.
@@ -11,7 +11,7 @@ using System.Numerics;
 //Hit and Die (6 frames)
 //Critical Death (8 frames)
 
-namespace RayLibTemplate.Entites
+namespace RaylibPrototypeGame.Entites
 {
 	record ZombieStateStance(string Name) : IState;
     record ZombieStateLurch(string Name) : IState;
@@ -31,10 +31,10 @@ namespace RayLibTemplate.Entites
             AddComponent(new TransformComponent() { Position = position });
             AddComponent(new MovementComponent() { Speed = 25 });
             AddComponent(new StateComponent(ZombieStates.Stance));
-            AddComponent(new AIComponent() { AggroDistance = 200 });
+            AddComponent(new AIComponent() { AggroDistance = 800 }); // Large aggro distance for wave mode
             AddComponent(new CollisionComponent() { Radius = 10 });
             AddComponent(new HealthComponent() { Health = 50 });
-            AddComponent(new AttackComponent() { AttackRange = 20, Damage = 5 });
+            AddComponent(new AttackComponent() { AttackRange = 25, Damage = 10 });
 
             AddComponent(new DrawComponent(rowCount: 8, columnCount: 36));
             var draw = GetComponent<DrawComponent>();

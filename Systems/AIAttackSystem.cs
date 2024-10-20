@@ -1,8 +1,8 @@
-﻿using RayLibTemplate.Components;
-using RayLibTemplate.Entites;
-using RayLibTemplate.Extensions;
+﻿using RaylibPrototypeGame.Components;
+using RaylibPrototypeGame.Entites;
+using RaylibPrototypeGame.Extensions;
 
-namespace RayLibTemplate.Systems
+namespace RaylibPrototypeGame.Systems
 {
 	internal class AIAttackSystem : System
 	{
@@ -28,7 +28,7 @@ namespace RayLibTemplate.Systems
 				{
 					continue;
 				}
-
+				
 				var frame = entity.GetComponent<FrameComponent>();
 
 				if (entity.IsFacingTowardsAndWithinRange(Player))
@@ -47,8 +47,8 @@ namespace RayLibTemplate.Systems
 					{
 						_initialAttack = true;
 
-						var playerHealth = Player.GetComponent<HealthComponent>();
 						var attack = entity.GetComponent<AttackComponent>();
+						var playerHealth = Player.GetComponent<HealthComponent>();
 
 						playerHealth.TakeDamage(attack.Damage);
 

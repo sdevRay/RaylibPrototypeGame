@@ -1,7 +1,7 @@
 ﻿using Raylib_cs;
 using System.Numerics;
 
-namespace RayLibTemplate.Components
+namespace RaylibPrototypeGame.Components
 {
     internal class Sprite
     {

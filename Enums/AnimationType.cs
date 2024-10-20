@@ -1,4 +1,4 @@
-﻿namespace RayLibTemplate.Enums
+﻿namespace RaylibPrototypeGame.Enums
 {
     internal enum AnimationType
     {

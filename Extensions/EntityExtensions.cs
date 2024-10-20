@@ -1,8 +1,8 @@
-﻿using RayLibTemplate.Components;
-using RayLibTemplate.Entites;
+﻿using RaylibPrototypeGame.Components;
+using RaylibPrototypeGame.Entites;
 using System.Numerics;
 
-namespace RayLibTemplate.Extensions
+namespace RaylibPrototypeGame.Extensions
 {
 	internal static class EntityExtensions
 	{

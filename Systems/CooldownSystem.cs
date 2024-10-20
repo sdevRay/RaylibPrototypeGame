@@ -1,6 +1,6 @@
-﻿using RayLibTemplate.Components;
+﻿using RaylibPrototypeGame.Components;
 
-namespace RayLibTemplate.Systems
+namespace RaylibPrototypeGame.Systems
 {
     internal class CooldownSystem : System
     {

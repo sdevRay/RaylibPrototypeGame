@@ -1,6 +1,6 @@
-﻿using RayLibTemplate.Enums;
+﻿using RaylibPrototypeGame.Enums;
 
-namespace RayLibTemplate.Components
+namespace RaylibPrototypeGame.Components
 {
     internal class FrameState
     {

@@ -1,6 +1,6 @@
-﻿using RayLibTemplate.Entites;
+﻿using RaylibPrototypeGame.Entites;
 
-namespace RayLibTemplate.Systems
+namespace RaylibPrototypeGame.Systems
 {
     internal abstract class System
     {

@@ -1,6 +1,6 @@
-﻿using RayLibTemplate.Enums;
+﻿using RaylibPrototypeGame.Enums;
 
-namespace RayLibTemplate.Extensions
+namespace RaylibPrototypeGame.Extensions
 {
 	public static class FloatExtensions
 	{

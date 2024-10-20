@@ -1,7 +1,7 @@
-﻿using RayLibTemplate.Enums;
+﻿using RaylibPrototypeGame.Enums;
 using System.Numerics;
 
-namespace RayLibTemplate.Components
+namespace RaylibPrototypeGame.Components
 {
     internal class TransformComponent : IComponent
     {

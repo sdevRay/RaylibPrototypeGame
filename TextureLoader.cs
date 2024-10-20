@@ -1,6 +1,6 @@
 ﻿using Raylib_cs;
 
-namespace RayLibTemplate
+namespace RaylibPrototypeGame
 {
     internal static class TextureLoader
     {

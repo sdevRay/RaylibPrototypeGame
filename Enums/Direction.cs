@@ -1,4 +1,4 @@
-﻿namespace RayLibTemplate.Enums
+﻿namespace RaylibPrototypeGame.Enums
 {
     public enum Direction
     {

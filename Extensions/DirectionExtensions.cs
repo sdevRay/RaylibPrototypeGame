@@ -1,7 +1,7 @@
-﻿using RayLibTemplate.Enums;
+﻿using RaylibPrototypeGame.Enums;
 using System.Numerics;
 
-namespace RayLibTemplate.Extensions
+namespace RaylibPrototypeGame.Extensions
 {
 	public static class DirectionExtensions
 	{
